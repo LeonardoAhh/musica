@@ -43,3 +43,9 @@ npm run build
 Probar `/c/me-tengo-que-ir`, `/a/maelo-ruiz`, compartir enlaces, audio apagado/encendido, teclado, y móvil 360px / tablet 820px / escritorio 1440px.
 
 **Nota:** la integración se prepara por cambios de código en GitHub; el build y la prueba acústica real necesitan ejecutarse en una instalación con dependencias.
+
+## Morphicons
+
+Los iconos con cambio de estado (menú abierto/cerrado y guardar/quitar guardado) usan `morphicons/react` con datos SVG del paquete `lucide` (no `lucide-react`). Los iconos estáticos siguen usando `lucide-react`. Se respeta `reducedMotion="user"` para evitar animaciones si así lo prefiere la persona.
+
+Instalación: `npm install`. Verifica `npm run typecheck && npm run build`.
