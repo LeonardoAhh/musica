@@ -41,7 +41,7 @@ export default function StudioClient(){
   return subscribeEditorSongs(items=>{setSongs(items);setListError('')},error=>setListError(error.message));
  },[verified]);
  const visible=songs.filter(song=>(song.title+' '+song.artist).toLocaleLowerCase('es').includes(search.trim().toLocaleLowerCase('es')));
- const update=<K extends keyof SongDraft>(key:K,value:SongDraft[K])=>setDraft(current=>({...current,[key]:value}));
+ function update<K extends keyof SongDraft>(key:K,value:SongDraft[K]){setDraft(current=>({...current,[key]:value}))}
  function open(song:SongRecord){const {id,updatedAt,...fields}=song;setDraft(fields);setSelected(id);setSlug(id);setMessage('')}
  function startNew(){setSelected(null);setDraft({...empty});setSlug('');setMessage('')}
  async function authenticate(){
