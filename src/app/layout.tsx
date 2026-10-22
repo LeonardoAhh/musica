@@ -8,8 +8,9 @@ import './discovery.css';
 import './pwa.css';
 import './error-states.css';
 import InstallBanner from '@/components/install-banner';
+import {site} from '@/data/site';
 const inter=Inter({subsets:['latin'],variable:'--font-inter',display:'swap'});
 const editorial=Cormorant_Garamond({subsets:['latin'],weight:['300','400'],variable:'--font-editorial',display:'swap'});
-export const metadata:Metadata={metadataBase:new URL('https://musica-tau-livid.vercel.app'),alternates:{canonical:'/'},applicationName:'Ecos del Alma',title:'Ecos del Alma — Música que se queda contigo',appleWebApp:{capable:true,title:'Ecos del Alma',statusBarStyle:'default'},description:'Una colección editorial de salsa, cumbia y canciones que se bailan con los pies y se sienten con el corazón.',openGraph:{siteName:'Ecos del Alma',locale:'es_MX',url:'/',title:'Ecos del Alma',description:'Hay canciones que se bailan. Otras se quedan contigo.',type:'website'}};
-export const viewport:Viewport={width:'device-width',initialScale:1,themeColor:'#f5f5f5'};
+export const metadata:Metadata={metadataBase:new URL(site.origin),alternates:{canonical:'/'},applicationName:site.name,title:`${site.name} — Música que se queda contigo`,appleWebApp:{capable:true,title:site.name,statusBarStyle:'default'},description:site.description,openGraph:{siteName:site.name,locale:'es_MX',url:'/',title:site.name,description:'Hay canciones que se bailan. Otras se quedan contigo.',type:'website'}};
+export const viewport:Viewport={width:'device-width',initialScale:1,themeColor:site.colors.canvas};
 export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="es"><body className={`${inter.variable} ${editorial.variable}`}>{children}<InstallBanner/></body></html>}
