@@ -48,7 +48,7 @@ export default function SongDialog({song,saved,onSave,onClose}:Props){
    }}>
     <button type="button" className="sheet-handle" aria-label="Cerrar detalles" onClick={onClose}
       onTouchStart={event=>{touchY.current=event.touches[0]?.clientY??null}}
-      onTouchEnd={event=>{if(touchY.current!==null&&event.changedTouches[0]?.clientY-touchY.current>80)onClose();touchY.current=null}}>
+      onTouchEnd={event=>{const end=event.changedTouches[0]?.clientY;if(touchY.current!==null&&end!==undefined&&end-touchY.current>80)onClose();touchY.current=null}}>
       <span aria-hidden="true"/>
     </button>
     <button ref={closeRef} data-cuelume-close type="button" className="modal-close" onClick={onClose} aria-label="Cerrar detalles"><X size={20}/></button>
