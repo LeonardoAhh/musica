@@ -1,15 +1,15 @@
 import type {Metadata} from 'next';
 import Link from 'next/link';
-import {notFound} from 'next/navigation';
 import {ArrowLeft,ArrowUpRight} from 'lucide-react';
 import {songs,spotifySearch} from '@/data/songs';
 import {artistSlug} from '@/data/paths';
 import StarRating from '@/components/star-rating';
+import RemoteSongPage from '@/components/remote-song-page';
 type Props={params:Promise<{id:string}>};
 export function generateStaticParams(){return songs.map(({id})=>({id}))}
 export async function generateMetadata({params}:Props):Promise<Metadata>{const {id}=await params;const song=songs.find(s=>s.id===id);if(!song)return {};return {title:`${song.title} — ${song.artist} | Ecos del Alma`,description:song.note,alternates:{canonical:`/c/${id}`}}}
 export default async function SongPage({params}:Props){
- const {id}=await params;const song=songs.find(s=>s.id===id);if(!song)notFound();
+ const {id}=await params;const song=songs.find(s=>s.id===id);if(!song)return <RemoteSongPage id={id}/>;
  const related=songs.filter(s=>s.id!==song.id&&(s.artist===song.artist||s.mood===song.mood)).slice(0,3);
  return <main className="shell detail-page"><Link className="back-link" href="/"><ArrowLeft size={16}/> Explorar archivo</Link><div className="detail-layout">
  <div className={`sleeve sleeve-${song.palette}`} aria-label={`Arte tipográfico de ${song.title}`}><div className="sleeve-sun"/><div className="sleeve-lines"/><div className="sleeve-inner"><span className="sleeve-kicker">ECOS DEL ALMA / ARCHIVO SONORO</span><strong className="sleeve-title">{song.title}</strong><span className="sleeve-artist">{song.artist}</span></div><span className="vinyl"/></div>
