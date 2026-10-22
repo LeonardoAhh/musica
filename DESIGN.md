@@ -45,3 +45,18 @@ An independent music discovery publication: quietly editorial, emotional, not a 
 - Rutas: `/c/[id]` y `/a/[slug]`; identificadores cortos, legibles y estables, enlaces canónicos.
 - Motion: entrada del hero y microinteracciones CSS; respetar preferencia de movimiento reducido.
 - Cuelume: solamente sonidos de controles de interfaz, no música de terceros; desactivado inicialmente, activación explícita.
+
+## Edición 08 — Progressive enhancement
+- Motion solo para cambios significativos; usar prefers-reduced-motion.
+- Cuelume opt-in, jamás auto-audio.
+- Banner PWA contextual y descartable; oculto en standalone.
+- Conservar fuentes y escala de espaciado del sistema, paleta, contraste, foco y objetivos táctiles de mínimo 42px.
+- Sin emojis; Lucide para iconos estáticos y Morphicons para transiciones de estado.
+- No activar auto-focus móvil ni deshabilitar zoom de accesibilidad.
+
+## Error states & loading states
+- 404: editorial empty state with a direct link home, never an unstyled browser page.
+- Route errors: user-facing brief copy, reset and home action; global boundary with independent document shell.
+- Section-specific skeletons: hero and featured sleeves on home, cover/details on songs, typographic introduction and track rows for artist/collections.
+- Skeletons mirror the actual content geometry to minimize layout shift; subtle shimmer disabled under `prefers-reduced-motion`.
+- Accessible `aria-busy` on loading placeholders; no unnecessary decorative status icons or emojis.
