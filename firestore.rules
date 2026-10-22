@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+ match /databases/{database}/documents {
+  function isOwner(uid) {return request.auth != null && request.auth.uid == uid;}
+  function isAdmin() {return request.auth != null && request.auth.token.admin == true;}
+  // One private, personal rating per authenticated visitor and song.
+  match /users/{uid}/ratings/{songId} {
+   allow read, delete: if isOwner(uid);
+   allow create, update: if isOwner(uid)
+    && request.resource.data.keys().hasOnly(['score','updatedAt'])
+    && request.resource.data.keys().hasAll(['score','updatedAt'])
+    && request.resource.data.score is int
+    && request.resource.data.score >= 1
+    && request.resource.data.score <= 5
+    && request.resource.data.updatedAt is int
+    && request.resource.data.updatedAt >= 0;
+  }
+  // Reserved for future user preferences. No writes until a schema is implemented.
+  match /users/{uid}/preferences/{prefId} {
+   allow read: if isOwner(uid);
+   allow write: if false;
+  }
+  // Future library: publicly readable only when published; publishing requires admin claim.
+  match /songs/{songId} {
+   allow read: if resource.data.status == 'published';
+   allow create, update, delete: if isAdmin();
+  }
+  match /{document=**} {allow read, write: if false;}
+ }
+}

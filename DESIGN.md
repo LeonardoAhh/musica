@@ -60,3 +60,14 @@ An independent music discovery publication: quietly editorial, emotional, not a 
 - Section-specific skeletons: hero and featured sleeves on home, cover/details on songs, typographic introduction and track rows for artist/collections.
 - Skeletons mirror the actual content geometry to minimize layout shift; subtle shimmer disabled under `prefers-reduced-motion`.
 - Accessible `aria-busy` on loading placeholders; no unnecessary decorative status icons or emojis.
+
+
+## Ratings, Firebase y hoja de detalles
+
+- Escalas distintas: personal 1–5 estrellas; editorial 1–10 sin mezclarlas.
+- Etiquetas de estrellas accesibles (radio nativo, `fieldset` y `legend`); tamaño objetivo 42px, foco visible y mensajes cortos.
+- Datos personales: `localStorage` primero; Firestore solo con configuración y sesión anónima iniciada al valorar. Cada usuario ve únicamente sus datos.
+- Esquema futuro: preferencias por usuario y canciones editoriales administradas; negar escritura pública por defecto.
+- Móvil <=767px: bottom sheet con safe area, contenido scrollable, cierre por tirador y botón. Escritorio: modal centrado.
+- Mantener sonidos Cuelume opcionales y Motion discreto; reducir animaciones según configuración del sistema.
+- Los estados vacíos respetan eje y alineación del catálogo, sin bloques centrados innecesariamente.
