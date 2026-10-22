@@ -1,41 +1,45 @@
-# Se Sufre Bonito 🎺
+# Ecos del Alma 🎶
 
-A music discovery publication for songs that are danced with the feet and felt with the heart. Next.js App Router + React + TypeScript + CSS/Tailwind foundation.
+Una publicación editorial independiente para descubrir canciones memorables.
 
-## Run locally
-
-Install Node 22 or 24 LTS, then:
+## Desarrollo
 
 ```bash
 npm install
 npm run dev
+npm run typecheck
+npm run lint
+npm run build
 ```
 
-Visit http://localhost:3000. Production check: `npm run typecheck && npm run build`.
+Usa Node.js 22 o 24 LTS. El repositorio oficial es [LeonardoAhh/musica](https://github.com/LeonardoAhh/musica). Al integrar cambios en `main`, Vercel puede desplegarlos automáticamente.
 
-## Publish
+## Rutas breves
 
-1. Create a blank GitHub repository (e.g., `se-sufre-bonito`).
-2. In this folder run:
-   ```bash
-   git init
-   git add .
-   git commit -m "feat: first editorial edition"
-   git branch -M main
-   git remote add origin https://github.com/YOUR-USERNAME/se-sufre-bonito.git
-   git push -u origin main
-   ```
-3. In Vercel, select **Add New > Project**, import your GitHub repo, keep framework auto-detection as Next.js and deploy.
-4. Vercel supplies a temporary `*.vercel.app` domain; attach a custom domain later if desired.
+- `/c/me-tengo-que-ir` — ficha de canción (ID editorial).
+- `/a/maelo-ruiz` — ficha de artista (slug normalizado).
 
-No secrets or database are needed for this release. This environment cannot sign into GitHub or Vercel on your behalf; no public deployment has been made yet.
+Las páginas incluyen metadatos y rutas generadas a partir del catálogo. Los enlaces a Spotify abren una búsqueda, no pistas verificadas.
 
-## Functions in this edition
-- Responsive home page for mobile / tablet / desktop.
-- Curated song catalog, full-text artist/title search, emotion filters, rating sort.
-- Song detail modal and link to a Spotify search.
-- Saved songs persisted locally in the browser.
-- Original typographic album-like art to avoid distributing copyrighted album covers.
+## Interacciones
 
-## Notes
-Ratings are an editorial record of the music chat, not external reviews. The site does not play or host tracks. `DESIGN.md` documents tokens, responsive breakpoints, and next iterations.
+Motion (importado de `motion/react`) anima la entrada del hero con soporte `prefers-reduced-motion`.
+
+Cuelume (`cuelume@0.2.8`) añade pistas sonoras a controles marcados con `data-cuelume-*`. **El sonido está desactivado por defecto**; la persona lo activa pulsando el icono de volumen en el encabezado. El volumen está limitado a 28%. No hay audio alojado ni reproducción automática de canciones.
+
+## Diseño
+
+Paleta editorial clara, tipografía Cormorant Garamond + Inter, favicon SVG de vinilo original y detalles atmosféricos suaves. `DESIGN.md` documenta tokens y reglas visuales. Las portadas son artes tipográficos originales.
+
+## Validación antes de fusionar
+
+```bash
+npm install
+npm run typecheck
+npm run lint
+npm run build
+```
+
+Probar `/c/me-tengo-que-ir`, `/a/maelo-ruiz`, compartir enlaces, audio apagado/encendido, teclado, y móvil 360px / tablet 820px / escritorio 1440px.
+
+**Nota:** la integración se prepara por cambios de código en GitHub; el build y la prueba acústica real necesitan ejecutarse en una instalación con dependencias.
