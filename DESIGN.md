@@ -1,0 +1,40 @@
+# Se Sufre Bonito — Design System / Edition 01
+
+## Intent
+An independent music discovery publication: quietly editorial, emotional, not a Spotify imitation. Inspired by the user's ElevenLabs design reference but with original music-first compositions, typographic record sleeves, and an intimate editorial voice.
+
+## Tokens
+- Canvas: `#f5f5f5`; soft: `#fafafa`; card: `#ffffff`
+- Ink: `#0c0a09`; primary action: `#292524`
+- Body: `#4e4e4e`; muted: `#777169`; hairline: `#e7e5e4`
+- Atmospheric mint: `#a7e5d3`; peach: `#f4c5a8`; lavender: `#c8b8e0`; sky: `#a8c8e8`; rose: `#e8b8c4`
+- Display: Cormorant Garamond Light (300); body: Inter 400/500. Cormorant is an open-source substitute, not the proprietary Waldenburg face.
+- Max content width: 1200px; base spacing: 4px; large desktop section rhythm: ~96–125px; mobile ~74px.
+- Buttons: ink primary pills, soft-outline secondary pills, no saturated action colors.
+- Cards: subtle outlines; album-cover artwork is original procedural typography/gradients, not reproductions of licensed covers.
+
+## Components
+- `Header`: anchored brand, category links, saved collection shortcut, responsive nav.
+- `Hero`: large editorial display, pastel atmospheric blooms, two restrained CTAs.
+- `ChampionCard`: original record sleeve with hierarchy and story.
+- `Catalog`: accessible search, emotional facets, saving, ordering, empty-state.
+- `SongDetail`: keyboard-accessible modal with Spotify search handoff.
+- `Footer`: minimalist publication identity.
+
+## Responsive
+- 320–355px: 1-column catalog for readable titles.
+- 356–767px: 2-column catalog, hamburger nav and stacked editorial intros.
+- 768–1050px: 3-column catalog.
+- >1050px: 4-column catalog, full navigation, 1200px content max.
+- Fluid display sizes via `clamp()`; flex content widths; avoid horizontal overflow.
+- Touch targets at least 42–46px in main controls; buttons and controls visible on touch.
+- `prefers-reduced-motion` disables motion, semantic buttons and labels, visible focus outlines.
+
+## Product boundaries
+- Audio belongs to rights holders; site does not host audio. Spotify URLs are user-initiated *search* links, not verified track-specific URLs.
+- Ratings are editorial ratings from this conversation, not crowd averages.
+- Saved tracks are stored only in browser localStorage; no login or synchronization.
+- No database, analytics, voting backend, or real-time music APIs in this first edition.
+
+## Future iterations
+- Artist and playlist routes, links to verified track IDs using approved integrations, opt-in community recommendations, moderated voting, database-backed collections, device tests and richer automated accessibility auditing.
