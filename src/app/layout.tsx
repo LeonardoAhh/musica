@@ -8,6 +8,7 @@ import './discovery.css';
 import './pwa.css';
 import './error-states.css';
 import './song-experience.css';
+import './icon-alignment.css';
 import InstallBanner from '@/components/install-banner';
 import {site} from '@/data/site';
 const inter=Inter({subsets:['latin'],variable:'--font-inter',display:'swap'});
