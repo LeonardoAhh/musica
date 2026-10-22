@@ -1,5 +1,5 @@
 'use client';
-import {useEffect,useMemo,useState,type ReactNode} from 'react';
+import {useEffect,useMemo,useState,type KeyboardEvent,type ReactNode} from 'react';
 import Link from 'next/link';
 import {ArrowLeft,ArrowUpRight,Disc3,LogIn,LogOut,Plus,RefreshCw,Search,ShieldCheck,Save,LibraryBig} from 'lucide-react';
 import {onAuthStateChanged,GoogleAuthProvider,getIdTokenResult,signInWithPopup,signOut,type User} from 'firebase/auth';
@@ -43,9 +43,24 @@ export default function StudioClient(){
  const [draft,setDraft]=useState<SongDraft>({...empty});
  const [baseline,setBaseline]=useState(JSON.stringify(['',empty]));
  const [mobilePane,setMobilePane]=useState<'catalog'|'editor'>('catalog');
+ const [mobile,setMobile]=useState(false);
  const [importConfirm,setImportConfirm]=useState(false);
  const [pending,setPending]=useState<Pending|null>(null);
  const services=useMemo(()=>getFirebaseServices(),[]);
+ useEffect(()=>{
+  const media=window.matchMedia('(max-width: 767px)');
+  const update=()=>setMobile(media.matches);
+  update();media.addEventListener('change',update);
+  return()=>media.removeEventListener('change',update);
+ },[]);
+ function tabKeyDown(event:KeyboardEvent<HTMLButtonElement>){
+  if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+  event.preventDefault();
+  const next=event.key==='Home'?'catalog':event.key==='End'?'editor':mobilePane==='catalog'?'editor':'catalog';
+  setMobilePane(next);
+  document.getElementById('studio-tab-'+next)?.focus({preventScroll:true});
+ }
+
  const dirty=JSON.stringify([slug,draft])!==baseline;
 
  useEffect(()=>{
@@ -139,12 +154,12 @@ export default function StudioClient(){
   :!user?<section className="studio-state"><ShieldCheck size={29}/><h2>Acceso privado</h2><p>Inicia sesión con tu cuenta de editor.</p><button type="button" className="ink-button" disabled={busy} onClick={()=>void authenticate()}><LogIn size={17}/> Entrar con Google</button>{authError&&<p role="alert" className="studio-notice">{authError}</p>}</section>
   :!verified?<section className="studio-state"><ShieldCheck size={29}/><h2>Acceso restringido</h2><p>Esta cuenta no tiene permiso de editor.</p><button type="button" className="outline-button" onClick={()=>services&&void signOut(services.auth)}>Cambiar de cuenta</button></section>
   :<>
-   <div className="studio-mobile-tabs" role="tablist" aria-label="Secciones del editor">
-    <button id="studio-tab-catalog" type="button" role="tab" aria-selected={mobilePane==='catalog'} aria-controls="studio-catalog" tabIndex={mobilePane==='catalog'?0:-1} onClick={()=>setMobilePane('catalog')}>Catálogo <span>{songs.length}</span></button>
-    <button id="studio-tab-editor" type="button" role="tab" aria-selected={mobilePane==='editor'} aria-controls="studio-editor" tabIndex={mobilePane==='editor'?0:-1} onClick={()=>setMobilePane('editor')}>Editor {dirty&&<span aria-label="Cambios pendientes">·</span>}</button>
+   <div className="studio-mobile-tabs" role={mobile?'tablist':undefined} aria-label={mobile?'Secciones del editor':undefined}>
+    <button id="studio-tab-catalog" type="button" role={mobile?'tab':undefined} aria-selected={mobile?mobilePane==='catalog':undefined} aria-controls={mobile?"studio-catalog":undefined} tabIndex={mobile?(mobilePane==='catalog'?0:-1):undefined} onKeyDown={tabKeyDown} onClick={()=>setMobilePane('catalog')}>Catálogo <span>{songs.length}</span></button>
+    <button id="studio-tab-editor" type="button" role={mobile?'tab':undefined} aria-selected={mobile?mobilePane==='editor':undefined} aria-controls={mobile?"studio-editor":undefined} tabIndex={mobile?(mobilePane==='editor'?0:-1):undefined} onKeyDown={tabKeyDown} onClick={()=>setMobilePane('editor')}>Editor {dirty&&<span aria-label="Cambios pendientes">·</span>}</button>
    </div>
    <div className="studio-layout" data-active-pane={mobilePane}>
-    <section id="studio-catalog" role="tabpanel" aria-labelledby="studio-tab-catalog" className="studio-list">
+    <section id="studio-catalog" role={mobile?'tabpanel':'region'} aria-labelledby={mobile?"studio-tab-catalog":undefined} aria-label={mobile?undefined:"Canciones del catálogo"} className="studio-list">
      <div className="studio-list-head"><div><h2>Canciones</h2><span className="studio-count" aria-label={songs.length+' canciones'}>{songs.length}</span></div>
       <button className="studio-add" type="button" onClick={()=>request({kind:'new'})}><Plus size={17} aria-hidden="true"/> Nueva</button>
      </div>
@@ -160,7 +175,7 @@ export default function StudioClient(){
      </div>
      <button className="studio-import" type="button" disabled={busy} onClick={()=>setImportConfirm(true)}><RefreshCw size={16} aria-hidden="true"/> Importar catálogo inicial</button>
     </section>
-    <section id="studio-editor" role="tabpanel" aria-labelledby="studio-tab-editor" className="studio-editor">
+    <section id="studio-editor" role={mobile?'tabpanel':'region'} aria-labelledby={mobile?"studio-tab-editor":undefined} aria-label={mobile?undefined:"Editor musical"} className="studio-editor">
      <header className="studio-editor-header"><div><p className="eyebrow">EDITOR MUSICAL</p><h2 id="editor-heading">{selected?'Editar canción':'Nueva canción'}</h2></div>
       {selected&&<Link className="studio-visit" href={`/c/${selected}`} target="_blank" rel="noopener noreferrer">Vista pública <ArrowUpRight size={16} aria-hidden="true"/></Link>}
      </header>
