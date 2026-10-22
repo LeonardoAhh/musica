@@ -13,11 +13,13 @@ import CollectionShowcase from '@/components/collection-showcase';
 import MoodDiscovery from '@/components/mood-discovery';
 import {artistSlug} from '@/data/paths';
 import {ArrowDown,ArrowRight,ArrowUpRight,Bookmark,CircleCheck,Disc3,Headphones,Heart,Menu,Music2,Search,SlidersHorizontal,Shuffle,X} from 'lucide-react';
-import {songs,moods,spotifySearch,type Song} from '@/data/songs';
+import {moods,spotifySearch,type Song} from '@/data/songs';
+import {useCatalog} from '@/components/catalog-provider';
 type Filter=(typeof moods)[number];
 const mark=(s:Song)=>s.score===10?'10/10':`${s.score ?? '—'}/10`;
 const Sleeve=SongSleeve;
 export default function Home(){
+ const {songs}=useCatalog();
  const reduceMotion=useReducedMotion();
  const [filter,setFilter]=useState<Filter>('Todas');const [search,setSearch]=useState('');const [saved,setSaved]=useState<string[]>([]);const [mobileMenu,setMobileMenu]=useState(false);const [savedOnly,setSavedOnly]=useState(false);const [selected,setSelected]=useState<Song|null>(null);const [sort,setSort]=useState('editorial');const [ready,setReady]=useState(false);const searchRef=useRef<HTMLInputElement>(null);
  useEffect(()=>{try{const value=JSON.parse(localStorage.getItem('eda-saved')||'[]');if(Array.isArray(value))setSaved(value.filter((id):id is string=>typeof id==='string'))}catch{}setReady(true)},[]);
