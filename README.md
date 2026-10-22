@@ -1,4 +1,4 @@
-# Ecos del Alma 🎶
+# Ecos del Alma
 
 Una publicación editorial independiente para descubrir canciones memorables.
 
