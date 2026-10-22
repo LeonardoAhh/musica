@@ -13,7 +13,7 @@ export default function RemoteSongPage({id}:{id:string}){
  const [status,setStatus]=useState<'loading'|'ready'|'missing'|'error'>('loading');
  useEffect(()=>{
   let active=true;
-  if(!firebaseConfigured){return}
+  if(!firebaseConfigured){setStatus('missing');return}
   import('@/lib/firebase/public-catalog').then(api=>api.fetchPublicSong(id)).then(item=>{
    if(!active)return;
    setSong(item);setStatus(item?'ready':'missing');
