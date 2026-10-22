@@ -1,0 +1,38 @@
+/* Edition 02: editorial polish layered on the established design tokens. */
+:root{--ease-editorial:cubic-bezier(.22,1,.36,1);--shadow-soft:0 18px 60px rgba(12,10,9,.075)}
+::selection{background:#d8e8de;color:var(--ink)}
+.header{position:sticky;top:0;z-index:40;box-shadow:0 1px 0 rgba(12,10,9,.025)}
+.brand{letter-spacing:-.04em}.brand svg{transition:transform .7s var(--ease-editorial)}.brand:hover svg{transform:rotate(65deg)}
+.hero{min-height:min(820px,calc(100svh - 72px));padding-block:110px 90px}
+.hero::after{content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;background-image:linear-gradient(rgba(12,10,9,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(12,10,9,.018) 1px,transparent 1px);background-size:82px 82px;mask-image:linear-gradient(to bottom,transparent,black 35%,transparent 92%)}
+.hero h1{max-width:1080px;text-wrap:balance}
+.hero h1 em,.closing h2 em,.section-top h2 em{font-style:italic}
+.hero-intro{text-wrap:pretty}
+.hero-bloom{animation:bloom-float 24s ease-in-out infinite alternate}
+.bloom-peach{animation-delay:-8s}.bloom-lavender{animation-delay:-14s}
+@keyframes bloom-float{from{translate:-12px 6px;scale:1}to{translate:24px -14px;scale:1.12}}
+.eyebrow{text-wrap:balance}
+.section-top h2{font-size:clamp(46px,6vw,76px);text-wrap:balance}
+.champion-card,.song-card{transition:transform .45s var(--ease-editorial)}
+.champion-card .sleeve,.song-card .sleeve{transition:transform .6s var(--ease-editorial),box-shadow .6s var(--ease-editorial),filter .5s}
+.champion-card:hover .sleeve,.song-card:hover .sleeve,.cover-button:focus-visible .sleeve{transform:translateY(-5px);box-shadow:var(--shadow-soft);filter:saturate(1.06)}
+.champion-card:focus-visible,.cover-button:focus-visible{outline:2px solid var(--ink);outline-offset:5px;border-radius:14px}
+.sleeve{border:1px solid rgba(12,10,9,.045)}
+.sleeve::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:linear-gradient(135deg,rgba(255,255,255,.24),transparent 35%,rgba(12,10,9,.035) 100%)}
+.sleeve-inner{z-index:3}.sleeve-title{overflow-wrap:anywhere}
+.quote-band blockquote{max-width:950px;text-wrap:balance}.quote-content{padding-block:clamp(85px,11vw,145px)}
+.search{transition:border-color .2s,box-shadow .25s}.search:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px rgba(12,10,9,.05)}
+.filter{transition:background .2s,color .2s,border-color .2s,transform .2s}.filter:hover:not(.active){background:var(--paper);border-color:#a8a29e;transform:translateY(-1px)}
+.save-button{transition:background .2s,transform .2s,border-color .2s}.save-button:hover{transform:scale(1.08)}
+.song-card{content-visibility:auto;contain-intrinsic-size:auto 470px}
+.song-details h3{text-wrap:balance}
+.detail-modal{max-height:min(90dvh,850px);overflow-y:auto;overscroll-behavior:contain}
+.modal-backdrop{backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
+.ink-button,.outline-button{transition:transform .28s var(--ease-editorial),box-shadow .28s,background .2s}
+.ink-button:hover{box-shadow:0 8px 22px rgba(12,10,9,.15)}
+.footer{border-top:1px solid var(--line)}
+@media(min-width:1051px){.champion-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.champion-grid .champion-card:last-child{display:block}}
+@media(min-width:768px) and (max-width:1050px){.champion-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.champion-grid .champion-card:last-child{display:block}}
+@media(max-width:767px){.hero{min-height:calc(100svh - 66px);padding-block:84px 110px}.hero::after{background-size:58px 58px}.hero h1{font-size:clamp(40px,8vw,64px)}.hero-bloom{animation-duration:34s}.champions,.catalog{padding-block:clamp(62px,10vw,84px)}.sleeve::after{opacity:.7}.quote-band blockquote{font-size:clamp(34px,7vw,58px)}.catalog-toolbar{gap:16px}.filters{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;padding:2px 2px 10px;margin:0 -2px;scrollbar-width:thin}.filter{flex:0 0 auto;scroll-snap-align:start}.detail-modal{max-height:calc(100dvh - 22px);gap:15px}.detail-cover{max-width:220px}.detail-copy h2{font-size:clamp(36px,9vw,52px)}.closing h2{font-size:clamp(38px,8vw,58px)}}
+@media(max-width:420px){.shell{width:calc(100% - 32px)}.hero h1{font-size:clamp(38px,10vw,44px)}.sleeve-title{font-size:clamp(22px,6vw,32px)}.song-grid,.champion-grid{gap:24px 13px}.song-meta{flex-wrap:wrap}.detail-modal{padding:18px}.detail-cover{max-width:185px}}
+@media(prefers-reduced-motion:reduce){.hero-bloom{animation:none!important}.champion-card,.song-card,.sleeve,.brand svg{transition:none!important}}
