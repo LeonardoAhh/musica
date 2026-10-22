@@ -7,4 +7,4 @@ export const collections=[
  {slug:'nostalgia',name:'Nostalgia bonita',tagline:'Recuerdos con ritmo.',description:'Canciones que hacen regresar a ese momento.',moods:['Nostalgia'],tone:'sky'},
 ] as const;
 export type Collection=(typeof collections)[number];
-export function tracksFor(collection:Collection){return songs.filter(song=>(collection.moods as readonly string[]).includes(song.mood))}
+export function tracksFor(collection:Collection,items=songs){return items.filter(song=>(collection.moods as readonly string[]).includes(song.mood))}
