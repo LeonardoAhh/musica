@@ -46,6 +46,12 @@ Probar `/c/me-tengo-que-ir`, `/a/maelo-ruiz`, compartir enlaces, audio apagado/e
 
 ## Morphicons
 
-Los iconos con cambio de estado (menú abierto/cerrado y guardar/quitar guardado) usan `morphicons/react` con datos SVG del paquete `lucide` (no `lucide-react`). Los iconos estáticos siguen usando `lucide-react`. Se respeta `reducedMotion="user"` para evitar animaciones si así lo prefiere la persona.
+Los iconos con cambio de estado (menú abierto/cerrado y guardar/quitar guardado) usan `morphicons/react` con trazados SVG compatibles con Lucide, evitando versiones incompatibles de IconNode. Los iconos estáticos siguen usando `lucide-react`. Se respeta `reducedMotion="user"` para evitar animaciones si así lo prefiere la persona.
 
 Instalación: `npm install`. Verifica `npm run typecheck && npm run build`.
+
+## PWA y criterios UX
+- Manifiesto y SVG 192/512, con service worker de fallback de navegación; sin audio de terceros en caché.
+- Banner contextual descartable: Android/Chromium usa beforeinstallprompt; iOS muestra instrucciones para Compartir > Agregar a inicio.
+- Sonido apagado inicialmente, ninguna interacción invasiva; reducción de movimiento, safe area y zoom manual intactos.
+- Comprobar instalación real iOS/Android y soporte de iconos; añadir PNG antes de dar por cerrada la compatibilidad.
