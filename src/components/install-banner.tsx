@@ -72,6 +72,6 @@ export default function InstallBanner(){
    <button type="button" className="ink-button install-action" onClick={install} disabled={busy} aria-expanded={ios?instructions:undefined} aria-controls={ios?'eda-install-help':undefined}>{ios?'Instalar':'Instalar'}</button>
    <button type="button" className="install-dismiss" onClick={dismiss} aria-label="No mostrar instalación por ahora"><X size={18} aria-hidden="true"/></button>
   </div>
-  {ios&&instructions&&<p id="eda-install-help" className="install-help"><Share2 size={16} aria-hidden="true"/> Abre Compartir y toca <SquarePlus size={16} aria-hidden="true"/> «Agregar a inicio».</p>}
+  {ios&&instructions&&<p id="eda-install-help" className="install-help">Abre <span className="install-help-step"><Share2 size={16} aria-hidden="true"/> Compartir</span> y elige <span className="install-help-step"><SquarePlus size={16} aria-hidden="true"/> «Agregar a inicio»</span>.</p>}
  </aside>;
 }
