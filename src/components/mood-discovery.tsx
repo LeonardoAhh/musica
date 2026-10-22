@@ -3,7 +3,8 @@ import {useMemo,useState} from 'react';
 import Link from 'next/link';
 import {motion,useReducedMotion} from 'motion/react';
 import {ArrowRight,ArrowUpRight,Heart,Music2,RefreshCw} from 'lucide-react';
-import {songs,spotifySearch,type Song,type Mood} from '@/data/songs';
+import {spotifySearch,type Song,type Mood} from '@/data/songs';
+import {useCatalog} from '@/components/catalog-provider';
 
 const moments:{id:string;label:string;subtitle:string;moods:Mood[];tone:string}[]=[
 {id:'dedicar',label:'Quiero dedicar',subtitle:'Un mensaje hecho canción',moods:['Romance'],tone:'peach'},
@@ -11,17 +12,18 @@ const moments:{id:string;label:string;subtitle:string;moods:Mood[];tone:string}[
 {id:'bailar',label:'Hoy quiero bailar',subtitle:'Ritmo, metales y mucho sabor',moods:['Salsa brava','Cumbia'],tone:'mint'},
 {id:'recordar',label:'Ando nostálgico',subtitle:'Volver a sentirlo todo',moods:['Nostalgia','Romance'],tone:'lavender'}
 ];
-function orderFor(id:string){return [...songs].sort((a,b)=>{
+function orderFor(id:string,songs:Song[]){return [...songs].sort((a,b)=>{
 const aa=(a.id+id).split('').reduce((n,ch)=>n+ch.charCodeAt(0),0);
 const bb=(b.id+id).split('').reduce((n,ch)=>n+ch.charCodeAt(0),0);
 return aa-bb||a.id.localeCompare(b.id)
 })}
 export default function MoodDiscovery(){
+const {songs}=useCatalog();
 const [moment,setMoment]=useState<string|null>(null);
 const [round,setRound]=useState(0);
 const reduced=useReducedMotion();
 const current=moments.find(m=>m.id===moment);
-const picks=useMemo(()=>{if(!current)return [];const matches=orderFor(current.id).filter(song=>current.moods.includes(song.mood));const offset=round%Math.max(1,matches.length);return [...matches.slice(offset),...matches.slice(0,offset)].slice(0,3)},[current,round]);
+const picks=useMemo(()=>{if(!current)return [];const matches=orderFor(current.id,songs).filter(song=>current.moods.includes(song.mood));const offset=round%Math.max(1,matches.length);return [...matches.slice(offset),...matches.slice(0,offset)].slice(0,3)},[current,round,songs]);
 return <section className="mood-discovery" id="descubrir" aria-labelledby="mood-heading"><div className="shell">
 <div className="section-top"><div><p className="eyebrow">05 / TU MOMENTO MUSICAL</p><h2 id="mood-heading">¿Cómo suena <em>tu día?</em></h2></div><p className="section-desc">Elige lo que sientes. Nosotros ponemos las canciones. Sin registros ni algoritmos que te persigan.</p></div>
 <div className="mood-choices" role="group" aria-label="Elegir un estado de ánimo">{moments.map(m=><button key={m.id} type="button" data-cuelume-select className={`mood-choice mood-${m.tone} ${moment===m.id?'is-active':''}`} aria-pressed={moment===m.id} onClick={()=>{setMoment(m.id);setRound(0)}}><span className="mood-choice-symbol">{m.id==='dedicar'?<Heart size={21}/>:<Music2 size={21}/>}</span><strong>{m.label}</strong><small>{m.subtitle}</small><ArrowUpRight className="mood-choice-arrow" size={21}/></button>)}</div>
