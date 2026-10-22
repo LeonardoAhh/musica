@@ -19,7 +19,7 @@ export function CatalogProvider({children}:{children:ReactNode}){
   return()=>{mounted=false;unsubscribe()};
  },[]);
  const value=useMemo<Catalog>(()=>{
-  if(remote===null)return {songs,source:'local',error};
+  if(remote===null)return firestoreOnly&&firebaseConfigured?{songs:[],source:'firestore',error}:{songs,source:'local',error};
   if(firestoreOnly)return {songs:remote,source:'firestore',error};
   const merged=new Map<string,Song>(songs.map(song=>[song.id,song]));
   for(const song of remote)merged.set(song.id,song);
