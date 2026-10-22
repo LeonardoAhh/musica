@@ -4,6 +4,7 @@ import './globals.css';
 import './edition02.css';
 import './edition03.css';
 import './collections.css';
+import './discovery.css';
 const inter=Inter({subsets:['latin'],variable:'--font-inter',display:'swap'});
 const editorial=Cormorant_Garamond({subsets:['latin'],weight:['300','400'],variable:'--font-editorial',display:'swap'});
 export const metadata:Metadata={metadataBase:new URL('https://musica-tau-livid.vercel.app'),alternates:{canonical:'/'},applicationName:'Ecos del Alma',title:'Ecos del Alma — Música que se queda contigo',description:'Una colección editorial de salsa, cumbia y canciones que se bailan con los pies y se sienten con el corazón.',openGraph:{siteName:'Ecos del Alma',locale:'es_MX',url:'/',title:'Ecos del Alma',description:'Hay canciones que se bailan. Otras se quedan contigo.',type:'website'}};
