@@ -34,3 +34,8 @@
 .related-link .related-meta{display:inline-flex;align-items:center;gap:5px}
 .related-link .related-meta svg{flex:0 0 auto;display:block}
 @media(max-width:767px){.detail-page-links{justify-content:flex-start}}
+
+/* iOS install instructions may wrap between steps, never between icon and label. */
+.install-help{display:block}
+.install-help-step{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;vertical-align:middle}
+.install-help-step svg{display:block;flex:0 0 auto}
