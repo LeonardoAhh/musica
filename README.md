@@ -74,3 +74,27 @@ Instalación: `npm install`. Verifica `npm run typecheck && npm run build`.
 5. Comprobar enfoque, modo de movimiento reducido, campos a 16 px y controles táctiles.
 
 **Pendiente de compatibilidad máxima:** iconos PNG dedicados para el manifiesto y Apple Touch; actualmente se utilizan SVG. El instalador de navegador depende del soporte del dispositivo y no está garantizado en todos los navegadores.
+
+
+## Valoración personal y Firebase
+
+Cada ficha y el panel de canción permiten calificar de **1 a 5 estrellas**. No es una puntuación pública: la nota editorial **/10** sigue separada. La calificación se conserva en el dispositivo, incluso sin configurar Firebase.
+
+Para conectar Firebase `ecos-del-alma-c7ee2`:
+
+1. Copia `.env.example` a `.env.local` en desarrollo y configura las seis variables `NEXT_PUBLIC_FIREBASE_*` en **Vercel → Settings → Environment Variables**, para Preview y Production. Vuelve a desplegar.
+2. Activa **Firebase Authentication → Sign-in method → Anonymous**.
+3. Crea **Cloud Firestore** en modo producción (reglas restrictivas).
+4. Publica `firestore.rules` desde la consola o con `npx firebase-tools deploy --only firestore:rules --project ecos-del-alma-c7ee2` tras iniciar sesión con `npx firebase-tools login`.
+
+Las claves web de Firebase identifican el proyecto, no son credenciales administrativas. **La seguridad depende de las reglas de Firestore**, que restringen cada valoración al usuario autenticado. No hay claves de servicio en este repositorio.
+
+Al votar, el navegador guarda la valoración y, cuando Firebase esté conectado, la envía bajo `users/{uid}/ratings/{songId}` con autenticación anónima. Un usuario anónimo no equivale a una cuenta entre dispositivos; para sincronización real entre ellos será necesario iniciar sesión y vincular las identidades.
+
+Las rutas `users/{uid}/preferences/...` y `songs/...` quedan reservadas. La publicación futura de canciones exigirá un rol de administrador, no escrituras públicas.
+
+## Hoja móvil y estados de catálogo
+
+En pantallas de hasta 767px, el detalle emerge desde abajo, se desplaza dentro de su propia superficie y se cierra desde el tirador, el botón, el fondo o Escape. En escritorio sigue centrado. El foco se restaura al cerrar y se respeta movimiento reducido.
+
+Los resultados vacíos se alinean con el catálogo. No se asignan alturas intrínsecas ficticias a las tarjetas, evitando huecos de distribución.
