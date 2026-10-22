@@ -2,7 +2,10 @@
 import {useEffect,useMemo,useRef,useState} from 'react';
 import {motion,useReducedMotion} from 'motion/react';
 import {MorphIcon} from 'morphicons/react';
-import {Menu as MenuShape,X as CloseShape,Bookmark as BookmarkShape,BookmarkCheck as BookmarkCheckShape} from 'lucide';
+const MenuShape='M4 6h16 M4 12h16 M4 18h16';
+const CloseShape='M18 6 6 18 M6 6l12 12';
+const BookmarkShape='M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z';
+const BookmarkCheckShape='M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16 M9 10l2 2 4-4';
 import SoundControls from '@/components/sound-controls';
 import CollectionShowcase from '@/components/collection-showcase';
 import MoodDiscovery from '@/components/mood-discovery';
