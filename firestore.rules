@@ -3,28 +3,43 @@ service cloud.firestore {
  match /databases/{database}/documents {
   function isOwner(uid) {return request.auth != null && request.auth.uid == uid;}
   function isAdmin() {return request.auth != null && request.auth.token.admin == true;}
-  // One private, personal rating per authenticated visitor and song.
+  function validSong(id) {
+   let d=request.resource.data;
+   return id.matches('^[a-z0-9]+(-[a-z0-9]+)*$') && id.size()<=80
+    && d.keys().hasOnly(['title','artist','genre','mood','note','palette','score','featured','favorite','status','updatedAt'])
+    && d.keys().hasAll(['title','artist','genre','mood','note','palette','score','featured','favorite','status','updatedAt'])
+    && d.title is string && d.title.size()>=1 && d.title.size()<=120
+    && d.artist is string && d.artist.size()>=1 && d.artist.size()<=120
+    && d.note is string && d.note.size()>=1 && d.note.size()<=500
+    && d.genre in ['Salsa','Cumbia']
+    && d.mood in ['Despecho','Romance','Salsa brava','Cumbia','Nostalgia']
+    && d.palette in ['rose','peach','mint','lavender','sky']
+    && (d.score==null || (d.score is int && d.score>=1 && d.score<=10))
+    && d.featured is bool && d.favorite is bool
+    && d.status in ['draft','published']
+    && d.updatedAt is int && d.updatedAt > 0;
+  }
+  // Personal ratings stay private, one document per song and UID.
   match /users/{uid}/ratings/{songId} {
    allow read, delete: if isOwner(uid);
    allow create, update: if isOwner(uid)
     && request.resource.data.keys().hasOnly(['score','updatedAt'])
     && request.resource.data.keys().hasAll(['score','updatedAt'])
-    && request.resource.data.score is int
-    && request.resource.data.score >= 1
-    && request.resource.data.score <= 5
-    && request.resource.data.updatedAt is int
-    && request.resource.data.updatedAt >= 0;
+    && request.resource.data.score is int && request.resource.data.score>=1
+    && request.resource.data.score<=5
+    && request.resource.data.updatedAt is int && request.resource.data.updatedAt>=0;
   }
-  // Reserved for future user preferences. No writes until a schema is implemented.
+  // Preferences will receive a constrained schema when the feature launches.
   match /users/{uid}/preferences/{prefId} {
    allow read: if isOwner(uid);
    allow write: if false;
   }
-  // Future library: publicly readable only when published; publishing requires admin claim.
+  // Published songs are readable by everyone; drafts only by admin accounts.
   match /songs/{songId} {
-   allow read: if resource.data.status == 'published';
-   allow create, update, delete: if isAdmin();
+   allow read: if isAdmin() || resource.data.status == 'published';
+   allow create, update: if isAdmin() && validSong(songId);
+   allow delete: if false;
   }
-  match /{document=**} {allow read, write: if false;}
+  match /{document=**} {allow read,write: if false;}
  }
 }
