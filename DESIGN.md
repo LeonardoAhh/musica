@@ -45,3 +45,11 @@ An independent music discovery publication: quietly editorial, emotional, not a 
 - Rutas: `/c/[id]` y `/a/[slug]`; identificadores cortos, legibles y estables, enlaces canónicos.
 - Motion: entrada del hero y microinteracciones CSS; respetar preferencia de movimiento reducido.
 - Cuelume: solamente sonidos de controles de interfaz, no música de terceros; desactivado inicialmente, activación explícita.
+
+## Edición 08 — Progressive enhancement
+- Motion solo para cambios significativos; usar prefers-reduced-motion.
+- Cuelume opt-in, jamás auto-audio.
+- Banner PWA contextual y descartable; oculto en standalone.
+- Conservar fuentes y escala de espaciado del sistema, paleta, contraste, foco y objetivos táctiles de mínimo 42px.
+- Sin emojis; Lucide para iconos estáticos y Morphicons para transiciones de estado.
+- No activar auto-focus móvil ni deshabilitar zoom de accesibilidad.
