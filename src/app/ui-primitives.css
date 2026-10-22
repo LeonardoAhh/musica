@@ -1,0 +1,35 @@
+/* Reusable primitives for Ecos del Alma. Tokens inherited from DESIGN.md. */
+.ui-select-trigger{width:100%;min-width:0;min-height:46px;display:inline-flex;align-items:center;justify-content:space-between;gap:12px;padding:0 13px;border-radius:10px;border:1px solid var(--line);background:var(--soft);color:var(--ink);font:400 15px/1.35 var(--font-inter),Arial,sans-serif;cursor:pointer;text-align:left;white-space:nowrap}
+.ui-select-trigger>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.ui-select-trigger svg{flex-shrink:0}
+.ui-select-trigger:hover{border-color:#c6c1bc}
+.ui-select-trigger:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.ui-select-trigger[data-state="open"]{border-color:var(--ink)}
+.ui-select-trigger[data-disabled]{opacity:.5;cursor:not-allowed}
+.ui-select-content{position:relative;z-index:150;background:var(--paper);border:1px solid var(--line);box-shadow:0 18px 45px #0c0a0919;border-radius:12px;padding:5px;min-width:var(--radix-select-trigger-width);max-width:min(370px,calc(100vw - 26px));max-height:min(340px,var(--radix-select-content-available-height));overflow:hidden;font-family:var(--font-inter),Arial,sans-serif;animation:ui-select-in .16s cubic-bezier(.22,1,.36,1)}
+.ui-select-viewport{padding:3px;max-height:calc(100dvh - 72px);overscroll-behavior:contain}
+.ui-select-option{position:relative;display:flex;align-items:center;min-height:43px;gap:9px;padding:10px 34px 10px 12px;border-radius:8px;outline:none;cursor:default;user-select:none;white-space:nowrap;font-size:13px;font-weight:500;color:var(--body)}
+.ui-select-option[data-highlighted]{color:var(--ink);background:var(--soft)}
+.ui-select-option[data-state="checked"]{color:var(--ink);font-weight:600}
+.ui-select-check{position:absolute;right:10px;top:50%;transform:translateY(-50%);display:inline-flex;align-items:center;justify-content:center}
+.ui-select-scroll{height:27px;display:flex;align-items:center;justify-content:center;color:var(--muted);background:var(--paper)}
+@keyframes ui-select-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+/* Native Windows confirm dialog replaced with a focus-managed Radix AlertDialog. */
+.ui-alert-overlay{position:fixed;inset:0;z-index:190;background:rgba(12,10,9,.44);animation:ui-fade-in .18s ease-out}
+.ui-alert-content{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:191;width:min(420px,calc(100% - 34px));padding:clamp(24px,5vw,32px);background:var(--paper);border:1px solid var(--line);box-shadow:0 30px 80px #0c0a0926;border-radius:18px;font-family:var(--font-inter),Arial,sans-serif}
+.ui-alert-icon{width:44px;height:44px;border-radius:50%;background:var(--soft);border:1px solid var(--line);display:grid;place-items:center;margin-bottom:21px;color:var(--body)}
+.ui-alert-title{margin:0 0 11px;font:400 clamp(30px,5vw,42px)/1.1 var(--font-editorial),Georgia,serif;letter-spacing:-.035em}
+.ui-alert-description{margin:0;font-size:13px;line-height:1.7;color:var(--body)}
+.ui-alert-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:28px;flex-wrap:wrap}
+.ui-alert-actions>*{white-space:nowrap}
+.ui-alert-content:focus{outline:none}
+@keyframes ui-fade-in{from{opacity:0}to{opacity:1}}
+/* Sonner toasts share the same surface, radius and typography. */
+[data-sonner-toaster]{font-family:var(--font-inter),Arial,sans-serif!important}
+[data-sonner-toast].ui-toast{background:var(--paper)!important;color:var(--ink)!important;border:1px solid var(--line)!important;border-radius:12px!important;box-shadow:0 10px 30px #0c0a0916!important;padding:14px 15px!important}
+[data-sonner-toast] .ui-toast-title{font-size:12px!important;line-height:1.5!important;font-weight:600!important}
+[data-sonner-toast] .ui-toast-description{font-size:12px!important;color:var(--muted)!important}
+[data-sonner-toast] [data-icon]{color:var(--ink)!important}
+[data-sonner-toast] button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+@media(max-width:767px){.ui-alert-actions{flex-direction:column-reverse}.ui-alert-actions>*{width:100%}.ui-select-content{max-width:calc(100vw - 24px)}[data-sonner-toaster]{max-width:calc(100vw - 28px)!important}}
+@media(prefers-reduced-motion:reduce){.ui-select-content,.ui-alert-overlay{animation:none!important}[data-sonner-toast]{transition:none!important}}
