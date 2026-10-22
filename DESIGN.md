@@ -1,4 +1,4 @@
-# Se Sufre Bonito — Design System / Edition 01
+# Ecos del Alma — Design System / Edition 03
 
 ## Intent
 An independent music discovery publication: quietly editorial, emotional, not a Spotify imitation. Inspired by the user's ElevenLabs design reference but with original music-first compositions, typographic record sleeves, and an intimate editorial voice.
@@ -34,7 +34,14 @@ An independent music discovery publication: quietly editorial, emotional, not a 
 - Audio belongs to rights holders; site does not host audio. Spotify URLs are user-initiated *search* links, not verified track-specific URLs.
 - Ratings are editorial ratings from this conversation, not crowd averages.
 - Saved tracks are stored only in browser localStorage; no login or synchronization.
-- No database, analytics, voting backend, or real-time music APIs in this first edition.
+- No database, analytics, voting backend, or real-time music APIs in this current edition.
 
 ## Future iterations
 - Artist and playlist routes, links to verified track IDs using approved integrations, opt-in community recommendations, moderated voting, database-backed collections, device tests and richer automated accessibility auditing.
+
+## Edición 03 — Interacción e identidad
+- Marca visible: **Ecos del Alma**; el eslogan «se sufre bonito» puede permanecer como referencia editorial, no como logotipo.
+- Favicon: `src/app/icon.svg`, vinilo monocromo original con notas atmosféricas.
+- Rutas: `/c/[id]` y `/a/[slug]`; identificadores cortos, legibles y estables, enlaces canónicos.
+- Motion: entrada del hero y microinteracciones CSS; respetar preferencia de movimiento reducido.
+- Cuelume: solamente sonidos de controles de interfaz, no música de terceros; desactivado inicialmente, activación explícita.
