@@ -44,6 +44,7 @@ export default function StudioClient(){
  const [baseline,setBaseline]=useState(JSON.stringify(['',empty]));
  const [mobilePane,setMobilePane]=useState<'catalog'|'editor'>('catalog');
  const [mobile,setMobile]=useState(false);
+ const [focusEditor,setFocusEditor]=useState(false);
  const [importConfirm,setImportConfirm]=useState(false);
  const [pending,setPending]=useState<Pending|null>(null);
  const services=useMemo(()=>getFirebaseServices(),[]);
@@ -53,6 +54,11 @@ export default function StudioClient(){
   update();media.addEventListener('change',update);
   return()=>media.removeEventListener('change',update);
  },[]);
+ useEffect(()=>{
+  if(!mobile||mobilePane!=='editor'||!focusEditor)return;
+  document.getElementById('editor-heading')?.focus({preventScroll:true});
+  setFocusEditor(false);
+ },[mobile,mobilePane,focusEditor]);
  function tabKeyDown(event:KeyboardEvent<HTMLButtonElement>){
   if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
   event.preventDefault();
@@ -90,11 +96,11 @@ export default function StudioClient(){
  function update<K extends keyof SongDraft>(key:K,value:SongDraft[K]){setDraft(current=>({...current,[key]:value}))}
  function open(song:SongRecord){
   const {id,updatedAt,...fields}=song;
-  setDraft(fields);setSelected(id);setSlug(id);setBaseline(JSON.stringify([id,fields]));setMobilePane('editor');
+  setDraft(fields);setSelected(id);setSlug(id);setBaseline(JSON.stringify([id,fields]));setMobilePane('editor');setFocusEditor(true);
  }
  function startNew(){
   const next={...empty};
-  setSelected(null);setDraft(next);setSlug('');setBaseline(JSON.stringify(['',next]));setMobilePane('editor');
+  setSelected(null);setDraft(next);setSlug('');setBaseline(JSON.stringify(['',next]));setMobilePane('editor');setFocusEditor(true);
  }
  function request(action:Pending){
   if(dirty){setPending(action);return}
@@ -151,7 +157,7 @@ export default function StudioClient(){
 
   {!firebaseConfigured?<section className="studio-state" role="status"><ShieldCheck size={28}/><h2>Conecta Firebase</h2><p>Configura el archivo .env.local para entrar a Studio.</p></section>
   :checking?<section className="studio-state" role="status"><p>Comprobando acceso…</p></section>
-  :!user?<section className="studio-state"><ShieldCheck size={29}/><h2>Acceso privado</h2><p>Inicia sesión con tu cuenta de editor.</p><button type="button" className="ink-button" disabled={busy} onClick={()=>void authenticate()}><LogIn size={17}/> Entrar con Google</button>{authError&&<p role="alert" className="studio-notice">{authError}</p>}</section>
+  :!user||user.isAnonymous?<section className="studio-state"><ShieldCheck size={29}/><h2>Acceso privado</h2><p>Inicia sesión con tu cuenta de editor.</p><button type="button" className="ink-button" disabled={busy} onClick={()=>void authenticate()}><LogIn size={17}/> Entrar con Google</button>{authError&&<p role="alert" className="studio-notice">{authError}</p>}</section>
   :!verified?<section className="studio-state"><ShieldCheck size={29}/><h2>Acceso restringido</h2><p>Esta cuenta no tiene permiso de editor.</p><button type="button" className="outline-button" onClick={()=>services&&void signOut(services.auth)}>Cambiar de cuenta</button></section>
   :<>
    <div className="studio-mobile-tabs" role={mobile?'tablist':undefined} aria-label={mobile?'Secciones del editor':undefined}>
@@ -176,7 +182,7 @@ export default function StudioClient(){
      <button className="studio-import" type="button" disabled={busy} onClick={()=>setImportConfirm(true)}><RefreshCw size={16} aria-hidden="true"/> Importar catálogo inicial</button>
     </section>
     <section id="studio-editor" role={mobile?'tabpanel':'region'} aria-labelledby={mobile?"studio-tab-editor":undefined} aria-label={mobile?undefined:"Editor musical"} className="studio-editor">
-     <header className="studio-editor-header"><div><p className="eyebrow">EDITOR MUSICAL</p><h2 id="editor-heading">{selected?'Editar canción':'Nueva canción'}</h2></div>
+     <header className="studio-editor-header"><div><p className="eyebrow">EDITOR MUSICAL</p><h2 id="editor-heading" tabIndex={-1}>{selected?'Editar canción':'Nueva canción'}</h2></div>
       {selected&&<Link className="studio-visit" href={`/c/${selected}`} target="_blank" rel="noopener noreferrer">Vista pública <ArrowUpRight size={16} aria-hidden="true"/></Link>}
      </header>
      <form onSubmit={event=>{event.preventDefault();void save()}}>
