@@ -36,7 +36,8 @@ service cloud.firestore {
   }
   // Published songs are readable by everyone; drafts only by admin accounts.
   match /songs/{songId} {
-   allow read: if isAdmin() || resource.data.status == 'published';
+   allow get: if isAdmin() || resource == null || resource.data.status == 'published';
+   allow list: if isAdmin() || resource.data.status == 'published';
    allow create, update: if isAdmin() && validSong(songId);
    allow delete: if false;
   }
