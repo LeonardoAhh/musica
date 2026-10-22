@@ -19,3 +19,14 @@
 @media(max-width:950px){.mood-choices{grid-template-columns:repeat(2,minmax(0,1fr))}.mood-picks{grid-template-columns:1fr}.mood-pick{grid-template-columns:30px minmax(0,1fr) auto;align-items:center}.mood-pick-actions{grid-column:3;margin:0}}
 @media(max-width:600px){.mood-discovery{padding:75px 0}.mood-choices{gap:10px}.mood-choice{min-height:190px;padding:17px}.mood-choice strong{font-size:16px}.mood-choice small{font-size:11px}.mood-results-heading{align-items:flex-start;flex-direction:column}.mood-pick{grid-template-columns:22px 1fr}.mood-pick-actions{grid-column:2;justify-content:flex-start;margin-top:12px}}
 @media(prefers-reduced-motion:reduce){.mood-choice{transition:none}}
+
+/* Mobile focus behavior: avoid Safari input auto-zoom without disabling pinch zoom. */
+@media (pointer:coarse){
+  .search input,.sort select,input[type="search"],input[type="text"],textarea,select{font-size:16px}
+  .search input{min-height:28px}
+}
+@media(max-width:767px){
+  .search input,.sort select{font-size:16px}
+  .search{scroll-margin-top:85px}
+}
+/* Keep deliberate user zoom enabled; do not set maximum-scale or user-scalable=no. */
