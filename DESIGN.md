@@ -71,3 +71,16 @@ An independent music discovery publication: quietly editorial, emotional, not a 
 - Móvil <=767px: bottom sheet con safe area, contenido scrollable, cierre por tirador y botón. Escritorio: modal centrado.
 - Mantener sonidos Cuelume opcionales y Motion discreto; reducir animaciones según configuración del sistema.
 - Los estados vacíos respetan eje y alineación del catálogo, sin bloques centrados innecesariamente.
+
+
+## Ecos Studio — edición editorial del panel administrativo
+
+- Herramienta de trabajo, no landing: barra compacta, encabezado breve y panel de catálogo separado de cuatro secciones del editor (identidad, historia, clasificación y publicación).
+- Fuentes: Cormorant Garamond Light solo para marca/títulos editoriales; Inter 400/500/600 para campos, controles y estados. Paleta y `--line`, `--paper`, `--canvas` del sistema.
+- Espaciado de 4 px: grupos 16–20 px, tarjetas 20–28 px, columnas 24 px; sin bloques excesivamente altos.
+- Escritorio: listado sticky con desplazamiento interno y editor por tarjetas. Móvil ≤767 px: dos pestañas con roles, estados y flechas de teclado; solo un panel visible a la vez.
+- Botones, iconos Lucide y etiquetas funcionales son unidades sin salto de línea. Nombres de canciones largos usan truncamiento en el listado.
+- `UiSelect` es una primitiva Radix accesible y controlada: trigger con nombre mediante `label`, navegación con teclado, typeahead, Portal para evitar recortes, indicador y foco visibles. No usar `<select>` nativo en Studio.
+- `UiToaster` y `notify`: mensajes breves no bloqueantes, Lucide, como máximo 3; éxito/error después de resolver acciones, no al hacer clic. Sonido Cuelume desactivado inicialmente.
+- `ConfirmDialog` de Radix solo para acciones que merecen confirmación: importar catálogo o abandonar una edición sin guardar; foco contenido y Escape.
+- Feedback accesible: aviso de cambios pendientes, foco visible, objetivos ≥42 px, inputs de ≥16 px para iOS, `prefers-reduced-motion` desactiva animaciones no esenciales.

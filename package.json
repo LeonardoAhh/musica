@@ -18,7 +18,10 @@
     "motion": "^14.3.0",
     "cuelume": "^0.2.8",
     "morphicons": "^2.0.0",
-    "firebase": "^12.0.0"
+    "firebase": "^12.0.0",
+    "@radix-ui/react-select": "^2.4.1",
+    "@radix-ui/react-alert-dialog": "^1.1.24",
+    "sonner": "^2.0.8"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",

@@ -10,6 +10,7 @@ import './error-states.css';
 import './song-experience.css';
 import './icon-alignment.css';
 import './studio.css';
+import './ui-primitives.css';
 import {CatalogProvider} from '@/components/catalog-provider';
 import InstallBanner from '@/components/install-banner';
 import {site} from '@/data/site';
