@@ -6,6 +6,7 @@ import './edition03.css';
 import './collections.css';
 import './discovery.css';
 import './pwa.css';
+import './error-states.css';
 import InstallBanner from '@/components/install-banner';
 const inter=Inter({subsets:['latin'],variable:'--font-inter',display:'swap'});
 const editorial=Cormorant_Garamond({subsets:['latin'],weight:['300','400'],variable:'--font-editorial',display:'swap'});
