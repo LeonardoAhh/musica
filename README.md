@@ -55,3 +55,22 @@ Instalación: `npm install`. Verifica `npm run typecheck && npm run build`.
 - Banner contextual descartable: Android/Chromium usa beforeinstallprompt; iOS muestra instrucciones para Compartir > Agregar a inicio.
 - Sonido apagado inicialmente, ninguna interacción invasiva; reducción de movimiento, safe area y zoom manual intactos.
 - Comprobar instalación real iOS/Android y soporte de iconos; añadir PNG antes de dar por cerrada la compatibilidad.
+
+
+## PWA — instalación y modo offline
+
+- `/manifest.webmanifest`: identificación visual de Ecos del Alma; iconos SVG de 192 y 512 px.
+- `/sw.js`: precarga `/offline.html` y lo ofrece únicamente si falla una navegación de la misma web. No se almacena música ni contenido de terceros.
+- Aviso contextual de instalación: aparece cuando se ha explorado la página y el navegador permite instalarla. Se oculta mientras se edita un campo, en modo standalone o tras descartarlo durante 30 días.
+- En Android/Chromium, **Instalar** utiliza `beforeinstallprompt` cuando el navegador emite el evento; en iOS ofrece la ruta manual de Compartir.
+- No se bloquea la ampliación manual ni se activa el teclado automáticamente.
+
+### Verificación antes de producción
+
+1. `npm run typecheck && npm run lint && npm run build`.
+2. En Android/Chrome comprobar instalación, icono, lanzamiento standalone y cierre del banner.
+3. En iOS comprobar Compartir → Agregar a pantalla de inicio y el comportamiento standalone.
+4. Con el sitio abierto previamente, desactivar la conexión y navegar a otra ruta: debe aparecer la pantalla offline.
+5. Comprobar enfoque, modo de movimiento reducido, campos a 16 px y controles táctiles.
+
+**Pendiente de compatibilidad máxima:** iconos PNG dedicados para el manifiesto y Apple Touch; actualmente se utilizan SVG. El instalador de navegador depende del soporte del dispositivo y no está garantizado en todos los navegadores.
