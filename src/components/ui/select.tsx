@@ -10,7 +10,7 @@ type Props={
 
 export function UiSelect({id,value,onValueChange,options,placeholder='Seleccionar',disabled}:Props){
  return <SelectPrimitive.Root value={value} onValueChange={onValueChange} disabled={disabled}>
-  <SelectPrimitive.Trigger id={id} className="ui-select-trigger" aria-label={undefined} data-cuelume-select>
+  <SelectPrimitive.Trigger id={id} className="ui-select-trigger" data-cuelume-select>
    <SelectPrimitive.Value placeholder={placeholder}/>
    <SelectPrimitive.Icon asChild><ChevronDown size={17} strokeWidth={1.7} aria-hidden="true"/></SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
