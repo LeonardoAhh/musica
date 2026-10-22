@@ -1,7 +1,7 @@
 'use client';
 import {useEffect,useId,useState} from 'react';
 import {Star,X} from 'lucide-react';
-import {firebaseConfigured,readPersonalRating,writePersonalRating} from '@/lib/firebase/client';
+import {firebaseConfigured} from '@/lib/firebase/config';
 
 type Props={songId:string;compact?:boolean};
 const ratingKey=(id:string)=>'eda-stars-v1:'+id;
@@ -19,7 +19,7 @@ export default function StarRating({songId,compact=false}:Props){
   const sync=(event:Event)=>{const changed=(event as CustomEvent<{songId:string;score:number|null}>).detail;if(changed.songId===songId)setScore(changed.score)};
   window.addEventListener(EVENT,sync);
   // Existing anonymous accounts can restore their own rating if local data is missing.
-  if(firebaseConfigured)readPersonalRating(songId).then(value=>{
+  if(firebaseConfigured)import('@/lib/firebase/client').then(({readPersonalRating})=>readPersonalRating(songId)).then(value=>{
    if(!active||value===null)return;
    let stored:null|number=null;try{stored=parseStored(localStorage.getItem(ratingKey(songId)))}catch{}
    if(stored===null){setScore(value);try{localStorage.setItem(ratingKey(songId),String(value))}catch{}}
@@ -35,6 +35,7 @@ export default function StarRating({songId,compact=false}:Props){
   window.dispatchEvent(new CustomEvent(EVENT,{detail:{songId,score:value}}));
   if(!firebaseConfigured)return;
   try{
+   const {writePersonalRating}=await import('@/lib/firebase/client');
    const cloud=await writePersonalRating(songId,value);
    if(cloud)setStatus(value===null?'Calificación eliminada':'Guardada en Firebase');
   }catch{setStatus('Guardada en este dispositivo; sin sincronizar') }
