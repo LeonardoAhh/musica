@@ -6,3 +6,8 @@ out
 *.log
 *.tsbuildinfo
 .DS_Store
+
+# Privileged credentials never belong in this repository
+*service-account*.json
+*firebase-admin*.json
+.secrets/
