@@ -171,3 +171,41 @@ El push sube únicamente esa rama a GitHub. **No fusionamos a `main` hasta que p
 El panel no garantiza privacidad por estar en `/studio`: las reglas Firestore exigen un **custom claim `admin: true`** firmado por el servidor. No hay manera de asignarlo desde el código del cliente. Visitantes anónimos solo leen canciones publicadas; borradores y escrituras están restringidos. Guardamos las valoraciones personales en `users/{uid}/ratings/{songId}` y las preferencias futuras continúan bloqueadas hasta validar su estructura. Las variables `NEXT_PUBLIC_*` de Firebase son públicas por diseño; nunca son claves de administrador.
 
 **Importante:** no se han habilitado proveedores de Firebase, publicado reglas ni probado credenciales desde este entorno. Debes hacer esas operaciones conscientemente en la consola de tu proyecto.
+
+
+## Ecos Studio — nueva interfaz y primitivas
+
+La experiencia `/studio` utiliza `src/components/ui/select.tsx` (Radix Select), `ui/toast.tsx` (Sonner + Lucide) y `ui/confirm-dialog.tsx` (Radix AlertDialog). Sus estilos residen en `src/app/ui-primitives.css` y el diseño del panel en `src/app/studio.css`. **No utiliza selects ni confirmaciones visuales nativas de Windows**.
+
+- Escritorio: catálogo independiente, con scroll interno, y editor dividido en Identidad, Historia, Clasificación y Publicación.
+- Móvil: pestañas Catálogo / Editor, foco y navegación accesibles; textos de acciones e iconos sin saltos.
+- Estado: toasts solo cuando hay resultado real; aviso de cambios sin guardar y confirmación antes de abandonar una canción.
+- No cambia la configuración de Firebase ni las reglas Firestore.
+
+### Probar localmente, sin Vercel
+
+```powershell
+git status
+git fetch origin
+git switch --track origin/feat/studio-editorial-ui
+npm.cmd install
+npm.cmd run typecheck
+npm.cmd run lint
+npm.cmd run build
+npm.cmd run dev
+```
+
+Si `git switch --track` indica que la rama ya existe, usa `git switch feat/studio-editorial-ui` y `git pull --ff-only`. Guarda antes cualquier cambio local, sin `reset --hard`. La instalación **actualiza `package-lock.json`** con Radix y Sonner: inclúyelo en tu commit local después de verificar el resultado.
+
+Revisar en `http://localhost:3000/studio`: filtros y campos Select con teclado (flechas, Enter, Escape); toast al guardar; confirmación de importación; cambios pendientes al cambiar de canción; vista 320, 390, 768 y 1440 px.
+
+Después de probar:
+
+```powershell
+git status
+git add package.json package-lock.json src/app src/components/ui src/components/studio DESIGN.md README.md
+git commit -m "test: validar diseño responsive y primitivas de Studio"
+git push -u origin feat/studio-editorial-ui
+```
+
+No realices el commit si no hay cambios locales; si los hay, revisa `git diff --cached` antes de confirmar. El PR permanecerá en borrador hasta terminar las pruebas. No desplegamos en Vercel.
