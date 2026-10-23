@@ -1125,3 +1125,83 @@ body[data-scroll-locked]:has(.studio-editor-dialog[open]) {
     font-size: 9px;
   }
 }
+
+/* AI image results: keep the definition list readable and actions below it.
+   A single-column layout prevents long values and buttons from competing
+   for the narrow width of the mobile editor dialog. */
+.studio-image-suggestion {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: stretch;
+  gap: 16px;
+}
+
+.studio-image-suggestion > div {
+  min-width: 0;
+  width: 100%;
+}
+
+.studio-image-suggestion dl {
+  min-width: 0;
+}
+
+.studio-image-suggestion dl div {
+  grid-template-columns: minmax(0, 90px) minmax(0, 1fr);
+}
+
+.studio-image-suggestion dd {
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.studio-image-suggestion-actions {
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.studio-image-suggestion-actions button {
+  flex: 1 1 150px;
+  min-width: 0;
+  white-space: normal;
+}
+
+@media (max-width: 520px) {
+  .studio-image-suggestion {
+    padding: 16px;
+    gap: 18px;
+  }
+
+  .studio-image-suggestion dl {
+    gap: 12px;
+  }
+
+  .studio-image-suggestion dl div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .studio-image-suggestion dt {
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .studio-image-suggestion dd {
+    font-size: 14px;
+  }
+
+  .studio-image-suggestion-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .studio-image-suggestion-actions button {
+    width: 100%;
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+}
