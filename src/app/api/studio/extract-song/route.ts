@@ -1,5 +1,4 @@
-import {applicationDefault,getApps,initializeApp} from 'firebase-admin/app';
-import {getAuth} from 'firebase-admin/auth';
+import {adminAuth} from '@/lib/firebase/admin';
 import {NextResponse} from 'next/server';
 import {genres,moodsForEditor} from '@/data/song-schema';
 
@@ -16,8 +15,7 @@ export async function POST(request:Request){
  const bearer=request.headers.get('authorization')?.match(/^Bearer (.+)$/);
  if(!bearer)return NextResponse.json({error:'Inicia sesión como editor.'},{status:401});
  try{
-  const app=getApps()[0]??initializeApp({credential:applicationDefault(),projectId:process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID});
-  const token=await getAuth(app).verifyIdToken(bearer[1]);
+  const token=await adminAuth().verifyIdToken(bearer[1]);
   if(token.admin!==true)return NextResponse.json({error:'Acceso restringido.'},{status:403});
  }catch{return NextResponse.json({error:'No se pudo verificar el acceso del editor.'},{status:401})}
  if(Number(request.headers.get('content-length')??0)>6*1024*1024)return NextResponse.json({error:'La imagen es demasiado grande.'},{status:413});
