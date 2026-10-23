@@ -1340,3 +1340,52 @@
 .studio-page:focus {
   outline: none;
 }
+
+/* Minimal progress indicator: thin segments with accessible 42px tap targets. */
+.studio-wizard-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  padding: 0 32px;
+  border-bottom: 1px solid var(--line);
+}
+.studio-wizard-steps button,
+.studio-wizard-steps button.is-current {
+  position: relative;
+  min-height: 42px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  justify-content: center;
+}
+.studio-wizard-steps button::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: 3px;
+  border-radius: 99px;
+  background: var(--line);
+  transform: translateY(-50%);
+}
+.studio-wizard-steps button.is-current::after {
+  background: var(--ink);
+}
+.studio-wizard-steps button > span {
+  display: none !important;
+}
+.studio-wizard-steps button:focus-visible {
+  outline-offset: -2px;
+}
+@media (max-width: 767px) {
+  .studio-wizard-steps {
+    padding: 0 20px;
+    gap: 5px;
+  }
+  .studio-wizard-steps button,
+  .studio-wizard-steps button.is-current {
+    min-height: 28px;
+    padding: 0;
+  }
+}
