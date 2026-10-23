@@ -870,8 +870,12 @@
   white-space: nowrap;
 }
 
-/* Keyboard focus must remain obvious on both list and editor. */
-.studio-add:focus-visible,
+/* Keyboard focus remains visible for interactive controls. */
+.studio-add:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
 /* ============================================================
    Responsive
    ============================================================ */
