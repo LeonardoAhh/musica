@@ -12,7 +12,6 @@ function parseStored(value:string|null){const number=Number(value);return value!
 export default function StarRating({songId,compact=false}:Props){
  const id=useId();
  const [score,setScore]=useState<number|null>(null);
- const [status,setStatus]=useState('');
  useEffect(()=>{
   let active=true;
   try{setScore(parseStored(localStorage.getItem(ratingKey(songId))))}catch{}
@@ -27,18 +26,18 @@ export default function StarRating({songId,compact=false}:Props){
   return()=>{active=false;window.removeEventListener(EVENT,sync)};
  },[songId]);
  async function rate(value:number|null){
-  setScore(value);setStatus('Guardada en este dispositivo');
+  setScore(value);
   try{
    if(value===null)localStorage.removeItem(ratingKey(songId));
    else localStorage.setItem(ratingKey(songId),String(value));
-  }catch{setStatus('Solo durante esta sesión')}
+  }catch{}
   window.dispatchEvent(new CustomEvent(EVENT,{detail:{songId,score:value}}));
   if(!firebaseConfigured)return;
   try{
    const {writePersonalRating}=await import('@/lib/firebase/client');
    const cloud=await writePersonalRating(songId,value);
-   if(cloud)setStatus(value===null?'Calificación eliminada':'Guardada en Firebase');
-  }catch{setStatus('Guardada en este dispositivo; sin sincronizar') }
+   void cloud;
+  }catch{}
  }
  return <fieldset className={`star-rating ${compact?'star-rating-compact':''}`}>
   <legend>Tu calificación</legend>
@@ -52,6 +51,6 @@ export default function StarRating({songId,compact=false}:Props){
    </span>)}
    {score!==null&&<button type="button" className="rating-clear" onClick={()=>void rate(null)} aria-label="Eliminar mi calificación" title="Eliminar calificación"><X size={16} aria-hidden="true"/></button>}
   </div>
-  <p className="rating-status" aria-live="polite">{score===null?'Sin calificar':score+' de 5 estrellas'}{status?' · '+status:''}</p>
+  <p className="rating-status" aria-live="polite">{score===null?'Sin calificar':score+' de 5 estrellas'}</p>
  </fieldset>;
 }
