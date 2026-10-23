@@ -1,22 +1,316 @@
 /* Ecos del Alma — purposeful skeletons and errors; same editorial tokens. */
-.sk-line{display:block;max-width:100%;border-radius:5px;background:#e5e2df;position:relative;overflow:hidden}
-.sk-line::after,.sk-cover::after{content:'';position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(100deg,transparent,rgba(255,255,255,.37),transparent);animation:sk-glide 2.3s ease-in-out infinite}
-@keyframes sk-glide{to{transform:translateX(100%)}}
-.sk-home{min-height:100dvh}.sk-top{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
-.sk-logo,.sk-top-actions,.sk-buttons{display:flex;align-items:center;gap:12px}
-.sk-hero{min-height:650px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center}
-.sk-hero-head{display:flex;flex-direction:column;align-items:center;gap:11px;width:min(100%,930px);margin:12px 0}
-.sk-hero>.sk-line{align-self:center}.sk-buttons{margin-top:18px;flex-wrap:wrap;justify-content:center}.sk-buttons .sk-line{border-radius:99px}
-.sk-section{padding-block:85px}.sk-section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:34px}
-.sk-section-head>div{display:flex;flex-direction:column;gap:14px}.sk-covers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
-.sk-cover{aspect-ratio:1;background:#e9d9d3;border-radius:13px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:9%}
-.sk-cover-head{height:1px;background:#c8bbb4;width:100%}.sk-cover-title{display:flex;flex-direction:column;gap:9px}.sk-cover .sk-line{background:rgba(114,96,88,.19)}.sk-card-caption{display:flex;flex-direction:column;gap:9px;padding-top:17px}
-.sk-detail .detail-layout>.sk-cover{width:100%}.sk-detail-copy{display:flex;flex-direction:column;align-items:flex-start;gap:19px}
-.sk-related{border:1px solid var(--line);background:white;border-radius:15px;min-height:125px;padding:24px;display:flex;flex-direction:column;gap:16px}
-.sk-artist-hero,.sk-collection-hero{margin:65px 0 35px;display:flex;flex-direction:column;align-items:flex-start;gap:24px}
-.sk-collection-hero{padding:clamp(38px,6vw,72px);background:#f2e3df;border-radius:23px}.sk-track-list{display:flex;flex-direction:column}.sk-track{display:flex;align-items:center;gap:26px;padding:23px 4px;border-bottom:1px solid var(--line)}.sk-track>div{display:flex;flex-direction:column;gap:11px;flex:1}
-.error-page{min-height:80dvh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding-block:90px}
-.error-disc{display:grid;place-items:center;width:92px;height:92px;border:1px solid var(--line);border-radius:50%;margin-bottom:38px;background:linear-gradient(145deg,#f1e6e3,#e4e8e3)}
-.error-page h1{font-family:var(--font-editorial),Georgia,serif;font-weight:300;letter-spacing:-.035em;line-height:1.06;font-size:clamp(48px,8vw,100px);margin:22px 0}
-.error-page h1 em{font-style:italic;font-weight:300}.error-copy{font-size:15px;color:var(--body);line-height:1.7}.error-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:26px}
-@media(max-width:1050px){.sk-covers{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:767px){.sk-top{height:66px}.sk-top-actions .sk-line:last-child{display:none}.sk-hero{min-height:550px}.sk-section{padding-block:70px}.sk-section-head{align-items:flex-start;flex-direction:column}.sk-detail .detail-layout{grid-template-columns:1fr}.sk-detail .detail-layout>.sk-cover{max-width:320px}.sk-hero-head{gap:8px}.sk-covers{gap:13px}}@media(max-width:420px){.error-actions{flex-direction:column;width:100%}.error-actions>*{width:100%}.sk-track{gap:13px}}@media(prefers-reduced-motion:reduce){.sk-line::after,.sk-cover::after{animation:none;display:none}}
+
+.sk-line {
+    display: block;
+    max-width: 100%;
+    border-radius: 5px;
+    background: #e5e2df;
+    position: relative;
+    overflow: hidden;
+}
+
+.sk-line::after,
+.sk-cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.37), transparent);
+    animation: sk-glide 2.3s ease-in-out infinite;
+}
+
+/* Sin `from`: el inicio implícito es el `translateX(-100%)` del elemento animado. */
+@keyframes sk-glide {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+.sk-home {
+    min-height: 100dvh;
+}
+
+.sk-top {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+}
+
+.sk-logo,
+.sk-top-actions,
+.sk-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sk-hero {
+    min-height: 650px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    text-align: center;
+}
+
+.sk-hero-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 11px;
+    width: min(100%, 930px);
+    margin: 12px 0;
+}
+
+/* Explícito por si .sk-hero deja de centrar sus hijos. */
+.sk-hero>.sk-line {
+    align-self: center;
+}
+
+.sk-buttons {
+    margin-top: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.sk-buttons .sk-line {
+    border-radius: 99px;
+}
+
+.sk-section {
+    padding-block: 85px;
+}
+
+.sk-section-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 34px;
+}
+
+.sk-section-head>div {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.sk-covers {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.sk-cover {
+    aspect-ratio: 1;
+    background: #e9d9d3;
+    border-radius: 13px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 9%;
+}
+
+.sk-cover-head {
+    height: 1px;
+    background: #c8bbb4;
+    width: 100%;
+}
+
+.sk-cover-title {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.sk-cover .sk-line {
+    background: rgba(114, 96, 88, 0.19);
+}
+
+.sk-card-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    padding-top: 17px;
+}
+
+.sk-detail .detail-layout>.sk-cover {
+    width: 100%;
+}
+
+.sk-detail-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 19px;
+}
+
+.sk-related {
+    border: 1px solid var(--line);
+    background: white;
+    border-radius: 15px;
+    min-height: 125px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sk-artist-hero,
+.sk-collection-hero {
+    margin: 65px 0 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.sk-collection-hero {
+    padding: clamp(38px, 6vw, 72px);
+    background: #f2e3df;
+    border-radius: 23px;
+}
+
+.sk-track-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.sk-track {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    padding: 23px 4px;
+    border-bottom: 1px solid var(--line);
+}
+
+.sk-track>div {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    flex: 1;
+}
+
+.error-page {
+    min-height: 80dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding-block: 90px;
+}
+
+.error-disc {
+    display: grid;
+    place-items: center;
+    width: 92px;
+    height: 92px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    margin-bottom: 38px;
+    background: linear-gradient(145deg, #f1e6e3, #e4e8e3);
+}
+
+.error-page h1 {
+    font-family: var(--font-editorial), Georgia, serif;
+    font-weight: 300;
+    letter-spacing: -0.035em;
+    line-height: 1.06;
+    font-size: clamp(48px, 8vw, 100px);
+    margin: 22px 0;
+}
+
+/* `em` ya es itálico por defecto; se mantiene por resets externos. */
+.error-page h1 em {
+    font-style: italic;
+    font-weight: 300;
+}
+
+.error-copy {
+    font-size: 15px;
+    color: var(--body);
+    line-height: 1.7;
+}
+
+.error-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 26px;
+}
+
+@media (max-width: 1050px) {
+    .sk-covers {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 767px) {
+    .sk-top {
+        height: 66px;
+    }
+
+    .sk-top-actions .sk-line:last-child {
+        display: none;
+    }
+
+    .sk-hero {
+        min-height: 550px;
+    }
+
+    .sk-section {
+        padding-block: 70px;
+    }
+
+    .sk-section-head {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .sk-detail .detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sk-detail .detail-layout>.sk-cover {
+        max-width: 320px;
+    }
+
+    .sk-hero-head {
+        gap: 8px;
+    }
+
+    .sk-covers {
+        gap: 13px;
+    }
+}
+
+@media (max-width: 420px) {
+    .error-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .error-actions>* {
+        width: 100%;
+    }
+
+    .sk-track {
+        gap: 13px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .sk-line::after,
+    .sk-cover::after {
+        animation: none;
+        display: none;
+    }
+}

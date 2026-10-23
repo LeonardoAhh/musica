@@ -1,41 +1,109 @@
 /* Actions are atomic: a label and its Lucide icon never split across lines. */
-.detail-page-links{align-items:center;column-gap:18px;row-gap:10px}
-.detail-page-links>a{
-  display:inline-flex;
-  flex:0 0 auto;
-  align-items:center;
-  justify-content:flex-start;
-  gap:5px;
-  max-width:100%;
-  min-height:42px;
-  white-space:nowrap;
-  text-decoration:underline;
-  text-underline-offset:4px;
+
+/* Nota: sobrescribe el `gap` definido para .detail-page-links en identity.css
+   (pasa de gap:17px a column-gap:18px + row-gap:10px). */
+.detail-page-links {
+  align-items: center;
+  column-gap: 18px;
+  row-gap: 10px;
 }
-.detail-page-links>a svg{display:block;flex:0 0 auto}
-.ink-button,.outline-button,.text-link,.quiet-tool,.back-link,.micro-route,.footer-top>a:last-child{
-  white-space:nowrap;
+
+.detail-page-links>a {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  max-width: 100%;
+  min-height: 42px;
+  white-space: nowrap;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
-.ink-button svg,.outline-button svg,.text-link svg,.quiet-tool svg,.back-link svg,.micro-route svg,.footer-top>a:last-child svg{
-  display:block;
-  flex:0 0 auto;
+
+.detail-page-links>a svg {
+  display: block;
+  flex: 0 0 auto;
 }
-.micro-route,.footer-top>a:last-child{display:inline-flex;align-items:center;gap:5px}
-.detail-layout .artist-link{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  max-width:100%;
-  text-decoration:underline;
-  text-underline-offset:4px;
+
+/* Etiquetas que nunca deben partirse: mantienen el icono junto a su texto. */
+.ink-button,
+.outline-button,
+.text-link,
+.quiet-tool,
+.back-link,
+.footer-top>a:last-child {
+  white-space: nowrap;
 }
-.detail-layout .artist-link span{min-width:0;overflow-wrap:anywhere}
-.detail-layout .artist-link svg{flex:0 0 auto;display:block}
-.related-link .related-meta{display:inline-flex;align-items:center;gap:5px}
-.related-link .related-meta svg{flex:0 0 auto;display:block}
-@media(max-width:767px){.detail-page-links{justify-content:flex-start}}
+
+.ink-button svg,
+.outline-button svg,
+.text-link svg,
+.quiet-tool svg,
+.back-link svg,
+.footer-top>a:last-child svg {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.footer-top>a:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.detail-layout .artist-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.detail-layout .artist-link span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.detail-layout .artist-link svg {
+  flex: 0 0 auto;
+  display: block;
+}
+
+.related-link .related-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.related-link .related-meta svg {
+  flex: 0 0 auto;
+  display: block;
+}
+
+/* `flex-start` es el default de flex; solo actúa si otro CSS lo cambia. */
+@media (max-width: 767px) {
+  .detail-page-links {
+    justify-content: flex-start;
+  }
+}
 
 /* iOS install instructions may wrap between steps, never between icon and label. */
-.install-help{display:block}
-.install-help-step{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;vertical-align:middle}
-.install-help-step svg{display:block;flex:0 0 auto}
+
+.install-help {
+  display: block;
+}
+
+.install-help-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.install-help-step svg {
+  display: block;
+  flex: 0 0 auto;
+}

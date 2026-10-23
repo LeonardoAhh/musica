@@ -1,23 +1,26 @@
 /* Guided discovery — calm editorial surfaces */
-.mood-discovery{padding:110px 0;background:#faf9f7;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.mood-discovery{padding:clamp(64px,7vw,88px) 0;background:#faf9f7;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.mood-discovery .section-top{margin-bottom:28px}
 .mood-choices{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.mood-choice{position:relative;text-align:left;display:flex;flex-direction:column;align-items:flex-start;min-height:208px;padding:23px;border:1px solid rgba(12,10,9,.08);border-radius:18px;transition:transform .25s,border-color .25s,box-shadow .25s}
+.mood-choice{position:relative;text-align:left;display:flex;flex-direction:column;align-items:flex-start;padding:18px;border:1px solid rgba(12,10,9,.08);border-radius:18px;transition:transform .25s,border-color .25s,box-shadow .25s}
 .mood-choice:hover{transform:translateY(-3px)}.mood-choice.is-active{border-color:var(--ink);box-shadow:0 0 0 2px rgba(12,10,9,.09)}
+.mood-choice,.mood-pick>div{min-width:0}
+.mood-choice strong,.mood-pick h4,.mood-pick p{overflow-wrap:break-word}
 .mood-peach{background:#f7e8dc}.mood-rose{background:#f2e1e5}.mood-mint{background:#e1efe8}.mood-lavender{background:#ece7f4}
-.mood-choice-symbol{display:flex;margin-bottom:auto}.mood-choice strong{font-size:19px;line-height:1.2;letter-spacing:-.4px;margin-top:32px}.mood-choice small{font-size:12px;color:#645d5a;margin-top:8px;line-height:1.5}
+.mood-choice-symbol{display:flex}.mood-choice strong{font-size:19px;line-height:1.2;letter-spacing:-.4px;margin-top:16px}.mood-choice small{font-size:12px;color:#645d5a;margin-top:6px;line-height:1.5}
 .mood-choice-arrow{position:absolute;right:18px;top:19px}
-.mood-results{padding-top:45px}.mood-results-heading{display:flex;justify-content:space-between;align-items:center;gap:22px;margin-bottom:24px}
+.mood-results{padding-top:32px}.mood-results-heading{display:flex;justify-content:space-between;align-items:center;gap:22px;margin-bottom:24px}
 .mood-results-heading h3{font-family:var(--font-editorial),Georgia,serif;font-weight:300;font-size:clamp(35px,5vw,58px);line-height:1.1;margin:8px 0 0}
 .mood-picks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .mood-pick{display:grid;grid-template-columns:24px minmax(0,1fr);gap:13px;padding:21px;border:1px solid var(--line);background:#fff;border-radius:16px;min-width:0}
 .mood-pick-index,.mood-pick-category{font-size:11px;letter-spacing:.5px;color:var(--muted)}
-.mood-pick h4{font-size:18px;margin:9px 0 4px;line-height:1.25;overflow-wrap:anywhere}.mood-pick p{font-size:13px;color:var(--body);margin:0}
+.mood-pick h4{font-size:18px;margin:9px 0 4px;line-height:1.25;overflow-wrap:normal;word-break:normal;text-wrap:balance}.mood-pick p{font-size:13px;color:var(--body);margin:0}
 .mood-pick-actions{grid-column:2;display:flex;justify-content:flex-end;gap:8px;margin-top:15px}
 .mood-pick-actions a{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--line);border-radius:99px}
 .mood-pick-actions a:hover{background:var(--canvas)}
 .mood-hint{font-size:11px;color:var(--muted);margin-top:18px}
 @media(max-width:950px){.mood-choices{grid-template-columns:repeat(2,minmax(0,1fr))}.mood-picks{grid-template-columns:1fr}.mood-pick{grid-template-columns:30px minmax(0,1fr) auto;align-items:center}.mood-pick-actions{grid-column:3;margin:0}}
-@media(max-width:600px){.mood-discovery{padding:75px 0}.mood-choices{gap:10px}.mood-choice{min-height:190px;padding:17px}.mood-choice strong{font-size:16px}.mood-choice small{font-size:11px}.mood-results-heading{align-items:flex-start;flex-direction:column}.mood-pick{grid-template-columns:22px 1fr}.mood-pick-actions{grid-column:2;justify-content:flex-start;margin-top:12px}}
+@media(max-width:600px){.mood-discovery{padding:56px 0}.mood-discovery .section-top{margin-bottom:22px}.mood-choices{gap:10px}.mood-choice{padding:16px}.mood-choice strong{font-size:16px;margin-top:14px}.mood-choice small{font-size:11px}.mood-results-heading{align-items:flex-start;flex-direction:column}.mood-pick{grid-template-columns:22px 1fr}.mood-pick-actions{grid-column:2;justify-content:flex-start;margin-top:12px}}
 @media(prefers-reduced-motion:reduce){.mood-choice{transition:none}}
 
 /* Mobile focus behavior: avoid Safari input auto-zoom without disabling pinch zoom. */

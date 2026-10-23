@@ -1,0 +1,96 @@
+/* One responsive composition for every song cover. */
+.sleeve {
+  aspect-ratio: 3 / 2;
+  container-type: inline-size;
+  width: 100%;
+  min-width: 0;
+}
+
+.sleeve .sleeve-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  padding: 8%;
+  padding: clamp(14px,8cqi,30px);
+}
+
+.sleeve-copy {
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.sleeve .sleeve-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 0;
+  margin: 0 0 clamp(5px,2cqi,12px);
+  overflow: hidden;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+  text-wrap: balance;
+  font-family: var(--font-editorial),Georgia,serif;
+  font-size: clamp(22px,3vw,44px);
+  font-size: clamp(22px,12cqi,44px);
+  font-weight: 400;
+  line-height: .98;
+  letter-spacing: -.04em;
+}
+
+.sleeve .sleeve-artist {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  font-size: 12px;
+  font-size: clamp(11px,4.5cqi,15px);
+  line-height: 1.35;
+}
+
+.champion-info,
+.champion-info > div,
+.song-details,
+.song-meta,
+.song-meta > span {
+  min-width: 0;
+}
+
+.champion-info {
+  grid-template-columns: minmax(0,1fr) 24px;
+}
+
+.champion-info h3,
+.song-details h3,
+.song-artist {
+  overflow-wrap: break-word;
+}
+
+.song-meta > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@container (max-width: 200px) {
+  .sleeve .sleeve-title {
+    -webkit-line-clamp: 2;
+    font-size: clamp(20px,12cqi,23px);
+  }
+}
+
+@media (max-width: 767px) {
+  .champion-card .sleeve,
+  .song-card .sleeve {
+    aspect-ratio: 4 / 3;
+  }
+}

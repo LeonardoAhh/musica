@@ -1,6 +1,7 @@
 'use client';
 import * as Alert from '@radix-ui/react-alert-dialog';
-import {AlertCircle} from 'lucide-react';
+import {X} from 'lucide-react';
+import {DialogHeader} from '@/components/ui/dialog-header';
 type Props={
  open:boolean;onOpenChange:(open:boolean)=>void;
  title:string;description:string;confirmLabel:string;onConfirm:()=>void;
@@ -11,7 +12,7 @@ export function ConfirmDialog({open,onOpenChange,title,description,confirmLabel,
   <Alert.Portal>
    <Alert.Overlay className="ui-alert-overlay"/>
    <Alert.Content className="ui-alert-content">
-    <div className="ui-alert-icon"><AlertCircle size={21} aria-hidden="true"/></div>
+    <DialogHeader label="CONFIRMACIÓN" closeControl={<Alert.Cancel className="ui-dialog-close" aria-label="Cerrar confirmación" disabled={busy}><X size={20} aria-hidden="true"/></Alert.Cancel>}/>
     <Alert.Title className="ui-alert-title">{title}</Alert.Title>
     <Alert.Description className="ui-alert-description">{description}</Alert.Description>
     <div className="ui-alert-actions">

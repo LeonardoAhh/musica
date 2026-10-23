@@ -1,40 +1,422 @@
 /* Reusable primitives for Ecos del Alma. Tokens inherited from DESIGN.md. */
-.ui-select-trigger{width:100%;min-width:0;min-height:46px;display:inline-flex;align-items:center;justify-content:space-between;gap:12px;padding:0 13px;border-radius:10px;border:1px solid var(--line);background:var(--soft);color:var(--ink);font:400 15px/1.35 var(--font-inter),Arial,sans-serif;cursor:pointer;text-align:left;white-space:nowrap}
-.ui-select-trigger>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis}
-.ui-select-trigger svg{flex-shrink:0}
-.ui-select-trigger:hover{border-color:#c6c1bc}
-.ui-select-trigger:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-.ui-select-trigger[data-state="open"]{border-color:var(--ink)}
-.ui-select-trigger[data-disabled]{opacity:.5;cursor:not-allowed}
-.ui-select-content{position:relative;z-index:150;background:var(--paper);border:1px solid var(--line);box-shadow:0 18px 45px #0c0a0919;border-radius:12px;padding:5px;min-width:var(--radix-select-trigger-width);max-width:min(370px,calc(100vw - 26px));max-height:min(340px,var(--radix-select-content-available-height));overflow:hidden;font-family:var(--font-inter),Arial,sans-serif;animation:ui-select-in .16s cubic-bezier(.22,1,.36,1)}
-.ui-select-viewport{padding:3px;max-height:calc(100dvh - 72px);overscroll-behavior:contain}
-.ui-select-option{position:relative;display:flex;align-items:center;min-height:43px;gap:9px;padding:10px 34px 10px 12px;border-radius:8px;outline:none;cursor:default;user-select:none;white-space:nowrap;font-size:13px;font-weight:500;color:var(--body)}
-.ui-select-option[data-highlighted]{color:var(--ink);background:var(--soft)}
-.ui-select-option[data-state="checked"]{color:var(--ink);font-weight:600}
-.ui-select-check{position:absolute;right:10px;top:50%;transform:translateY(-50%);display:inline-flex;align-items:center;justify-content:center}
-.ui-select-scroll{height:27px;display:flex;align-items:center;justify-content:center;color:var(--muted);background:var(--paper)}
-@keyframes ui-select-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+
+/* ============================================================
+   Select — trigger
+   ============================================================ */
+.ui-select-trigger {
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 13px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--soft);
+    color: var(--ink);
+    font: 400 15px / 1.35 var(--font-inter), Arial, sans-serif;
+    cursor: pointer;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.ui-select-trigger>span:first-child {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ui-select-leading-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+}
+
+.ui-select-value {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ui-select-trigger svg {
+    flex-shrink: 0;
+}
+
+.ui-select-trigger:hover {
+    border-color: #c6c1bc;
+}
+
+.ui-select-trigger:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+}
+
+.ui-select-trigger[data-state="open"] {
+    border-color: var(--ink);
+}
+
+.ui-select-trigger[data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ============================================================
+   Select — content
+   ============================================================ */
+.ui-select-content {
+    position: relative;
+    z-index: 150;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 18px 45px #0c0a0919;
+    border-radius: 12px;
+    padding: 5px;
+    min-width: var(--radix-select-trigger-width);
+    max-width: min(370px, calc(100vw - 26px));
+    max-height: min(340px, var(--radix-select-content-available-height));
+    overflow: hidden;
+    font-family: var(--font-inter), Arial, sans-serif;
+    animation: ui-select-in 0.16s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ui-select-viewport {
+    padding: 3px;
+    max-height: calc(100dvh - 72px);
+    overscroll-behavior: contain;
+}
+
+.ui-select-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 43px;
+    gap: 9px;
+    padding: 10px 34px 10px 12px;
+    border-radius: 8px;
+    outline: none;
+    cursor: default;
+    user-select: none;
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--body);
+}
+
+.ui-select-option[data-highlighted] {
+    color: var(--ink);
+    background: var(--soft);
+}
+
+.ui-select-option[data-state="checked"] {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+.ui-select-check {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ui-select-scroll {
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    background: var(--paper);
+}
+
+@keyframes ui-select-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================================
+   Shared dialog header
+   ============================================================ */
+.ui-dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    min-height: 42px;
+}
+
+.ui-dialog-header-label {
+    min-width: 0;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 650;
+    letter-spacing: 1.4px;
+    line-height: 1.3;
+    text-transform: uppercase;
+}
+
+.ui-dialog-close {
+    display: grid;
+    place-items: center;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ink);
+}
+
+.ui-dialog-close:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+}
+
+/* ============================================================
+   Alert dialog
+   ============================================================ */
+
 /* Native Windows confirm dialog replaced with a focus-managed Radix AlertDialog. */
-.ui-alert-overlay{position:fixed;inset:0;z-index:190;background:rgba(12,10,9,.44);animation:ui-fade-in .18s ease-out}
-.ui-alert-content{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:191;width:min(420px,calc(100% - 34px));padding:clamp(24px,5vw,32px);background:var(--paper);border:1px solid var(--line);box-shadow:0 30px 80px #0c0a0926;border-radius:18px;font-family:var(--font-inter),Arial,sans-serif}
-.ui-alert-icon{width:44px;height:44px;border-radius:50%;background:var(--soft);border:1px solid var(--line);display:grid;place-items:center;margin-bottom:21px;color:var(--body)}
-.ui-alert-title{margin:0 0 11px;font:400 clamp(30px,5vw,42px)/1.1 var(--font-editorial),Georgia,serif;letter-spacing:-.035em}
-.ui-alert-description{margin:0;font-size:13px;line-height:1.7;color:var(--body)}
-.ui-alert-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:28px;flex-wrap:wrap}
-.ui-alert-actions>*{white-space:nowrap}
-.ui-alert-content:focus{outline:none}
-@keyframes ui-fade-in{from{opacity:0}to{opacity:1}}
+.ui-alert-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 190;
+    background: rgba(12, 10, 9, 0.44);
+    animation: ui-fade-in 0.18s ease-out;
+}
+
+.ui-alert-content {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 191;
+    width: min(400px, calc(100% - 34px));
+    padding: clamp(20px, 4vw, 26px);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 30px 80px #0c0a0926;
+    border-radius: 18px;
+    font-family: var(--font-inter), Arial, sans-serif;
+}
+
+.ui-alert-content > .ui-dialog-header {
+    margin-bottom: 10px;
+}
+
+.ui-alert-title {
+    margin: 0 0 12px;
+    font: 400 clamp(28px, 4vw, 34px) / 1.1 var(--font-editorial), Georgia, serif;
+    letter-spacing: -0.035em;
+}
+
+.ui-alert-description {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--body);
+}
+
+.ui-alert-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.ui-alert-actions>* {
+    white-space: nowrap;
+}
+
+.ui-alert-content:focus {
+    outline: none;
+}
+
+/* ============================================================
+   Responsive dialog
+   ============================================================ */
+
+/* Shared responsive dialog: centered on desktop and a safe-area sheet on mobile. */
+.ui-responsive-dialog {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    padding: 0;
+    width: min(760px, calc(100% - 40px));
+    height: fit-content;
+    max-width: none;
+    max-height: min(850px, calc(100dvh - 48px));
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 0 30px 100px #0003;
+}
+
+.ui-responsive-dialog::backdrop {
+    background: rgba(12, 10, 9, 0.56);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.ui-responsive-dialog[open] {
+    animation: ui-dialog-in 0.18s ease-out;
+}
+
+.ui-responsive-dialog:focus {
+    outline: none;
+}
+
+.ui-responsive-dialog > .ui-dialog-header {
+    padding: 14px 20px 0;
+}
+
+@keyframes ui-dialog-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.99);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes ui-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ============================================================
+   Sonner toasts
+   ============================================================ */
+
 /* Sonner toasts share the same surface, radius and typography. */
-[data-sonner-toaster]{font-family:var(--font-inter),Arial,sans-serif!important}
-[data-sonner-toast].ui-toast{background:var(--paper)!important;color:var(--ink)!important;border:1px solid var(--line)!important;border-radius:12px!important;box-shadow:0 10px 30px #0c0a0916!important;padding:14px 15px!important}
-[data-sonner-toast] .ui-toast-title{font-size:12px!important;line-height:1.5!important;font-weight:600!important}
-[data-sonner-toast] .ui-toast-description{font-size:12px!important;color:var(--muted)!important}
-[data-sonner-toast] [data-icon]{color:var(--ink)!important}
-[data-sonner-toast] button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-@media(max-width:767px){.ui-alert-actions{flex-direction:column-reverse}.ui-alert-actions>*{width:100%}.ui-select-content{max-width:calc(100vw - 24px)}[data-sonner-toaster]{max-width:calc(100vw - 28px)!important}}
-@media(prefers-reduced-motion:reduce){.ui-select-content,.ui-alert-overlay{animation:none!important}[data-sonner-toast]{transition:none!important}}
+[data-sonner-toaster] {
+    font-family: var(--font-inter), Arial, sans-serif !important;
+}
+
+[data-sonner-toast].ui-toast {
+    background: var(--paper) !important;
+    color: var(--ink) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px #0c0a0916 !important;
+    padding: 14px 15px !important;
+}
+
+[data-sonner-toast] .ui-toast-title {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    font-weight: 600 !important;
+}
+
+[data-sonner-toast] .ui-toast-description {
+    font-size: 12px !important;
+    color: var(--muted) !important;
+}
+
+[data-sonner-toast] [data-icon] {
+    color: var(--ink) !important;
+}
+
+[data-sonner-toast] button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+}
+
+/* ============================================================
+   Catalog sort — variant compacto del select
+   ============================================================ */
 
 /* Catalog sorting uses the same accessible primitive with a compact footprint. */
-.catalog-tools .sort{display:inline-flex;align-items:center;gap:9px}
-.catalog-tools .sort>svg{flex-shrink:0}
-.catalog-tools .sort .ui-select-trigger{width:auto;min-width:167px;min-height:42px;font-size:13px;background:transparent;border-color:var(--line);padding-inline:12px}
+.catalog-tools .sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.catalog-tools .sort>svg {
+    flex-shrink: 0;
+}
+
+.catalog-tools .sort .ui-select-trigger {
+    width: auto;
+    min-width: 167px;
+    min-height: 42px;
+    font-size: 13px;
+    background: transparent;
+    border-color: var(--line);
+    padding-inline: 12px;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 767px) {
+    .ui-select-content {
+        max-width: calc(100vw - 24px);
+    }
+
+    [data-sonner-toaster] {
+        max-width: calc(100vw - 28px) !important;
+    }
+
+    .ui-responsive-dialog {
+        inset: auto 0 0;
+        margin: 0;
+        width: 100%;
+        max-width: none;
+        max-height: min(92dvh, 920px);
+        border: 0;
+        border-top: 1px solid var(--line);
+        border-radius: 22px 22px 0 0;
+        padding-bottom: env(safe-area-inset-bottom);
+        box-shadow: 0 -18px 60px #0002;
+    }
+
+}
+
+@media (max-width: 350px) {
+    .ui-alert-actions {
+        flex-direction: column-reverse;
+    }
+
+    .ui-alert-actions>* {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ui-select-content,
+    .ui-alert-overlay,
+    .ui-responsive-dialog[open] {
+        animation: none !important;
+    }
+
+    [data-sonner-toast] {
+        transition: none !important;
+    }
+}
