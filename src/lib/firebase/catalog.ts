@@ -9,7 +9,7 @@ export function subscribePublishedSongs(onChange:(items:SongRecord[])=>void,onEr
   onChange(snapshot.docs.flatMap(item=>{const song=parseSong(item.id,item.data());return song&&song.status==='published'?[song]:[]}));
  },onError);
 }
-export const STUDIO_PAGE_SIZE=12;
+export const STUDIO_PAGE_SIZE=3;
 export async function getEditorSongsPage(status:string,cursor:DocumentSnapshot|null){
  const svc=getFirebaseServices();if(!svc)throw Error('Configura Firebase antes de cargar canciones.');
  const constraints=[...(status==='all'?[]:[where('status','==',status)]),orderBy(documentId()),...(cursor?[startAfter(cursor)]:[]),limit(STUDIO_PAGE_SIZE+1)];
