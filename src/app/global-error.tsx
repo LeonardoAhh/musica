@@ -1,4 +1,70 @@
 'use client';
-import {useEffect} from 'react';
-import {RotateCcw,Disc3} from 'lucide-react';
-export default function GlobalError({error,reset}:{error:Error&{digest?:string};reset:()=>void}){useEffect(()=>{console.error('Ecos del Alma global error:',error)},[error]);return <html lang="es"><body style={{margin:0,background:'#f5f5f5',color:'#0c0a09',fontFamily:'Arial,sans-serif',display:'grid',placeItems:'center',minHeight:'100dvh',padding:24}}><main style={{maxWidth:550,textAlign:'center'}}><Disc3 size={44} strokeWidth={1.2} aria-hidden="true"/><p style={{fontSize:12,letterSpacing:2,marginTop:35}}>ECOS DEL ALMA</p><h1 style={{fontFamily:'Georgia,serif',fontWeight:400,fontSize:'clamp(42px,8vw,72px)',lineHeight:1.05}}>Un silencio inesperado.</h1><p style={{lineHeight:1.7,color:'#4e4e4e'}}>No pudimos cargar la aplicación.</p><button onClick={()=>reset()} style={{font:'inherit',border:0,borderRadius:99,padding:'15px 23px',background:'#292524',color:'#fff',display:'inline-flex',alignItems:'center',gap:9,cursor:'pointer',marginTop:20}}><RotateCcw size={17}/> Reintentar</button></main></body></html>}
+
+import { useEffect } from 'react';
+import { RotateCcw, Disc3 } from 'lucide-react';
+
+type GlobalErrorProps = {
+  error: Error & { digest?: string };
+  reset: () => void;
+};
+
+export default function GlobalError({ error, reset }: GlobalErrorProps) {
+  useEffect(() => {
+    console.error('Ecos del Alma global error:', error);
+  }, [error]);
+
+  return (
+    <html lang="es">
+      <body
+        style={{
+          margin: 0,
+          background: '#f5f5f5',
+          color: '#0c0a09',
+          fontFamily: 'Arial,sans-serif',
+          display: 'grid',
+          placeItems: 'center',
+          minHeight: '100dvh',
+          padding: 24,
+        }}
+      >
+        <main id="inicio" tabIndex={-1} style={{ maxWidth: 550, textAlign: 'center' }}>
+          <Disc3 size={44} strokeWidth={1.2} aria-hidden="true" />
+
+          <p style={{ fontSize: 12, letterSpacing: 2, marginTop: 35 }}>ECOS DEL ALMA</p>
+
+          <h1
+            style={{
+              fontFamily: 'Georgia,serif',
+              fontWeight: 400,
+              fontSize: 'clamp(42px,8vw,72px)',
+              lineHeight: 1.05,
+            }}
+          >
+            Un silencio inesperado.
+          </h1>
+
+          <p style={{ lineHeight: 1.7, color: '#4e4e4e' }}>No pudimos cargar la aplicación.</p>
+
+          <button
+            onClick={() => reset()}
+            style={{
+              font: 'inherit',
+              border: 0,
+              borderRadius: 99,
+              padding: '15px 23px',
+              background: '#292524',
+              color: '#fff',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 9,
+              cursor: 'pointer',
+              marginTop: 20,
+            }}
+          >
+            <RotateCcw size={17} /> Reintentar
+          </button>
+        </main>
+      </body>
+    </html>
+  );
+}

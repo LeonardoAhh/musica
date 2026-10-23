@@ -1,5 +1,6 @@
-import type { Metadata,Viewport } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Cormorant_Garamond } from 'next/font/google';
+
 import './globals.css';
 import './edition02.css';
 import './edition03.css';
@@ -8,14 +9,68 @@ import './discovery.css';
 import './pwa.css';
 import './error-states.css';
 import './song-experience.css';
+import './song-sleeve.css';
 import './icon-alignment.css';
 import './studio.css';
 import './ui-primitives.css';
-import {CatalogProvider} from '@/components/catalog-provider';
+import './song-suggestions.css';
+
+import { CatalogProvider } from '@/components/catalog-provider';
 import InstallBanner from '@/components/install-banner';
-import {site} from '@/data/site';
-const inter=Inter({subsets:['latin'],variable:'--font-inter',display:'swap'});
-const editorial=Cormorant_Garamond({subsets:['latin'],weight:['300','400'],variable:'--font-editorial',display:'swap'});
-export const metadata:Metadata={metadataBase:new URL(site.origin),alternates:{canonical:'/'},applicationName:site.name,title:`${site.name} — Música que se queda contigo`,appleWebApp:{capable:true,title:site.name,statusBarStyle:'default'},description:site.description,openGraph:{siteName:site.name,locale:'es_MX',url:'/',title:site.name,description:'Hay canciones que se bailan. Otras se quedan contigo.',type:'website'}};
-export const viewport:Viewport={width:'device-width',initialScale:1,themeColor:site.colors.canvas};
-export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="es"><body className={`${inter.variable} ${editorial.variable}`}><CatalogProvider>{children}</CatalogProvider><InstallBanner/></body></html>}
+import SongSuggestionFab from '@/components/song-suggestion-fab';
+import { site } from '@/data/site';
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const editorial = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300', '400'],
+  variable: '--font-editorial',
+  display: 'swap',
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(site.origin),
+  alternates: { canonical: '/' },
+  applicationName: site.name,
+  title: `${site.name} — Música que se queda contigo`,
+  appleWebApp: {
+    capable: true,
+    title: site.name,
+    statusBarStyle: 'default',
+  },
+  description: site.description,
+  openGraph: {
+    siteName: site.name,
+    locale: 'es_MX',
+    url: '/',
+    title: site.name,
+    description: 'Hay canciones que se bailan. Otras se quedan contigo.',
+    type: 'website',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: site.name }],
+  },
+  twitter: { card: 'summary_large_image', images: ['/opengraph-image'] },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: site.colors.canvas,
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="es">
+      <body className={`${inter.variable} ${editorial.variable}`}>
+        <a className="skip-link" href="#inicio">Saltar al contenido</a>
+        <CatalogProvider>{children}</CatalogProvider>
+        <InstallBanner />
+        <SongSuggestionFab />
+      </body>
+    </html>
+  );
+}

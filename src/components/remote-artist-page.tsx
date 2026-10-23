@@ -14,5 +14,5 @@ export default function RemoteArtistPage({slug}:{slug:string}){
   return()=>{active=false};
  },[slug]);
  const name=songs?.[0]?.artist;
- return <main className="shell detail-page"><Link className="back-link" href="/"><ArrowLeft size={16}/> Archivo musical</Link>{songs===null?<p className="detail-lead">Buscando artista…</p>:name?<><p className="eyebrow" style={{marginTop:70}}>ARTISTA / ECOS DEL ALMA</p><h1>{name}</h1><div className="artist-song-list">{songs.map(song=><Link href={`/c/${song.id}`} key={song.id}><span>{song.title}</span><ArrowUpRight size={19}/></Link>)}</div></>:<><h1>Artista no disponible.</h1><p className="detail-lead">Explora nuestra colección.</p></>}</main>;
+ return <main id="inicio" tabIndex={-1} className="shell detail-page"><Link className="back-link" href="/"><ArrowLeft size={16} aria-hidden="true"/> Archivo musical</Link>{songs===null?<p className="detail-lead">Buscando artista…</p>:name?<><p className="eyebrow" style={{marginTop:70}}>ARTISTA / ECOS DEL ALMA</p><h1>{name}</h1><div className="artist-song-list">{songs.map(song=><Link href={`/c/${song.id}`} key={song.id}><span>{song.title}</span><ArrowUpRight size={19} aria-hidden="true"/></Link>)}</div></>:<><h1>Artista no disponible.</h1><p className="detail-lead">Explora nuestra colección.</p></>}</main>;
 }

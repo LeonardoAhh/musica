@@ -1,49 +1,334 @@
 /* Ecos del Alma: responsive music details and personal ratings. Reuse DESIGN.md tokens. */
-.sheet-handle{display:none}
-.detail-modal{isolation:isolate}
-.star-rating{border:0;padding:0;margin:23px 0 5px;min-width:0}
-.star-rating legend{font:600 11px var(--font-inter),Arial,sans-serif;letter-spacing:1.1px;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
-.star-rating-row{display:flex;align-items:center;gap:3px;flex-wrap:wrap}
-.star-choice{position:relative;display:inline-flex;align-items:center;justify-content:center}
-.star-input{position:absolute;overflow:hidden;width:1px;height:1px;margin:0;padding:0;clip-path:inset(50%);white-space:nowrap}
-.star-choice label{cursor:pointer;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;color:var(--ink);transition:transform .2s ease,background-color .2s ease}
-.star-choice label:hover{background:var(--line);transform:scale(1.05)}
-.star-input:focus-visible+label{outline:2px solid var(--ink);outline-offset:2px}
-.rating-clear{display:grid;place-items:center;width:42px;height:42px;background:transparent;border:0;border-radius:50%;color:var(--muted)}
-.rating-clear:hover{background:var(--line);color:var(--ink)}
-.rating-status{font-size:12px;line-height:1.55;color:var(--muted);min-height:18px;margin:4px 0 0}
-.detail-copy .detail-page-links{margin-top:18px}
-.detail-copy .detail-actions{margin-top:24px}
+
+/* ============================================================
+   Breadcrumb
+   ============================================================ */
+.detail-breadcrumb {
+    max-width: 100%;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.detail-breadcrumb ol {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.detail-breadcrumb li {
+    min-width: 0;
+}
+
+.detail-breadcrumb li:first-child {
+    flex: none;
+}
+
+.detail-breadcrumb li:last-child {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+    color: var(--muted);
+}
+
+.detail-breadcrumb li:last-child::before {
+    content: "/";
+    flex: none;
+    color: var(--muted);
+}
+
+.detail-breadcrumb li:last-child span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.detail-breadcrumb a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+    text-underline-offset: 5px;
+}
+
+.detail-breadcrumb a:hover {
+    text-decoration-color: currentColor;
+}
+
+.detail-breadcrumb a:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+.detail-modal {
+    isolation: isolate;
+    column-gap: 45px;
+    row-gap: 18px;
+}
+
+.detail-modal > .ui-dialog-header {
+    grid-column: 1 / -1;
+}
+
+/* ============================================================
+   Star rating
+   ============================================================ */
+.star-rating {
+    border: 0;
+    padding: 0;
+    margin: 23px 0 5px;
+    min-width: 0;
+}
+
+.star-rating legend {
+    font: 600 11px var(--font-inter), Arial, sans-serif;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 9px;
+}
+
+.star-rating-row {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    flex-wrap: wrap;
+}
+
+.star-choice {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Visually-hidden input pero focusable. */
+.star-input {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.star-choice label {
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    color: var(--ink);
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.star-choice label:hover {
+    background: var(--line);
+    transform: scale(1.05);
+}
+
+.star-input:focus-visible+label {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+}
+
+.rating-clear {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    color: var(--muted);
+}
+
+.rating-clear:hover {
+    background: var(--line);
+    color: var(--ink);
+}
+
+.rating-status {
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--muted);
+    min-height: 18px;
+    margin: 4px 0 0;
+}
+
+/* Ajustes locales del modal de detalle (sobrescriben valores de globals). */
+.detail-copy .detail-note {
+    margin-top: 16px;
+}
+
+.detail-copy .detail-page-links {
+    margin-top: 18px;
+}
+
+.detail-copy .detail-actions {
+    margin-top: 24px;
+}
+
+/* ============================================================
+   Song grid — alineación de tarjetas
+   ============================================================ */
+
 /* A real catalog grid: no phantom intrinsic height when virtualized cards re-enter view. */
-.song-grid{align-items:stretch;row-gap:29px}
-.song-card{content-visibility:visible;contain-intrinsic-size:auto;display:flex;flex-direction:column}
-.song-details{display:flex;flex-direction:column;flex:1}
-.song-artist{min-height:0}
-.song-quick{margin-top:auto}
-.empty{align-items:flex-start;text-align:left;min-height:275px;padding:clamp(30px,5vw,56px);justify-content:center;width:100%}
-.empty h3,.empty p{text-align:left}
-.empty .outline-button{align-self:flex-start}
-@media(max-width:767px){
- .modal-backdrop{padding:0;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
- .detail-modal{width:100%;max-width:100%;margin:0;padding:18px 22px max(23px,env(safe-area-inset-bottom));max-height:min(91dvh,900px);border-radius:24px 24px 0 0;display:flex;flex-direction:column;gap:13px;align-items:stretch;overflow-y:auto;overscroll-behavior:contain;box-shadow:0 -18px 60px #0002}
- .sheet-handle{display:flex;align-items:center;justify-content:center;align-self:center;min-height:30px;width:min(50%,170px);border:0;background:transparent;padding:0;touch-action:pan-y;flex-shrink:0}
- .sheet-handle span{display:block;width:42px;height:5px;border-radius:20px;background:#d6d3d1}
- .detail-modal .modal-close{position:absolute;right:19px;top:19px;width:42px;height:42px}
- .detail-cover{width:min(38vw,148px);max-width:148px;margin:0 auto;flex-shrink:0}
- .detail-cover .sleeve-title{font-size:clamp(25px,6.2vw,38px)}
- .detail-copy{width:100%}
- .detail-copy h2{font-size:clamp(38px,9vw,54px);line-height:1.03;margin:10px 0 6px}
- .detail-artist{font-size:14px}
- .detail-note{font-size:14px;line-height:1.6;margin:12px 0}
- .detail-actions{margin-top:20px;gap:9px}
- .detail-actions>*{flex:1 1 auto}
- .star-rating{margin:17px 0 2px}
+.song-grid {
+    align-items: stretch;
+    row-gap: 29px;
 }
-@media(max-width:420px){
- .detail-modal{padding-inline:19px}
- .song-grid{row-gap:24px}
- .detail-cover{width:min(35vw,130px)}
- .empty{padding:28px 20px;min-height:230px}
+
+.song-card {
+    content-visibility: visible;
+    contain-intrinsic-size: auto;
+    display: flex;
+    flex-direction: column;
 }
-@media(max-height:650px) and (max-width:767px){.detail-cover{width:95px}.detail-modal{max-height:94dvh}}
-@media(prefers-reduced-motion:reduce){.star-choice label{transition:none}.star-choice label:hover{transform:none}}
+
+.song-details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* Sobrescribe min-height:37px de globals para que .song-quick se ancle al fondo. */
+.song-artist {
+    min-height: 0;
+}
+
+.song-quick {
+    margin-top: auto;
+}
+
+/* ============================================================
+   Empty state (variante catálogo)
+   ============================================================ */
+
+/* Difiere del .empty global: alineado a la izquierda, no centrado. */
+.empty {
+    align-items: flex-start;
+    text-align: left;
+    min-height: 275px;
+    padding: clamp(30px, 5vw, 56px);
+    justify-content: center;
+    width: 100%;
+}
+
+.empty h3,
+.empty p {
+    text-align: left;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 767px) {
+    .modal-backdrop {
+        padding: 0;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .detail-modal {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 18px 22px max(23px, env(safe-area-inset-bottom));
+        max-height: min(91dvh, 900px);
+        border-radius: 24px 24px 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        align-items: stretch;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        box-shadow: 0 -18px 60px #0002;
+    }
+
+    .detail-cover {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        flex-shrink: 0;
+    }
+
+    .detail-cover .sleeve {
+        aspect-ratio: 4 / 3;
+        border-radius: 16px;
+        box-shadow: 0 12px 30px #0c0a0914;
+    }
+
+    .detail-copy {
+        width: 100%;
+    }
+
+    .detail-note {
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 12px 0;
+    }
+
+    .detail-actions {
+        margin-top: 20px;
+        gap: 9px;
+    }
+
+    .detail-actions>* {
+        flex: 1 1 auto;
+    }
+
+    .star-rating {
+        margin: 17px 0 2px;
+    }
+}
+
+@media (max-width: 420px) {
+    .detail-modal {
+        padding-inline: 19px;
+    }
+
+    .song-grid {
+        row-gap: 24px;
+    }
+
+    .empty {
+        padding: 28px 20px;
+        min-height: 230px;
+    }
+}
+
+/* Landscape móvil: menos alto de sheet para no salirse del viewport. */
+@media (max-height: 650px) and (max-width: 767px) {
+    .detail-cover .sleeve {
+        aspect-ratio: 16 / 10;
+    }
+
+    .detail-modal {
+        max-height: 94dvh;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .star-choice label {
+        transition: none;
+    }
+
+    .star-choice label:hover {
+        transform: none;
+    }
+}
