@@ -3,7 +3,7 @@ import {useEffect,useMemo,useState} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {onAuthStateChanged,GoogleAuthProvider,getIdTokenResult,signInWithPopup,signOut,type User} from 'firebase/auth';
-import {Check,Inbox,LogOut,RotateCcw} from 'lucide-react';
+import {Check,LogOut,RotateCcw} from 'lucide-react';
 import {firebaseConfigured} from '@/lib/firebase/config';
 import {getFirebaseServices} from '@/lib/firebase/client';
 import type {SongSuggestion} from '@/data/song-suggestion';
@@ -101,8 +101,8 @@ export default function StudioSuggestionsClient(){
        <h2>{item.title}</h2>
        {item.status==='pending'?<button type="button" className="outline-button" disabled={Boolean(busyId)} onClick={()=>void markAdded(item.id)}><Check size={17} aria-hidden="true"/>{busyId===item.id?'Guardando…':'Marcar como agregada'}</button>:<p className="studio-suggestion-done"><Check size={16} aria-hidden="true"/> Ya está en el archivo</p>}
       </article>)}
-     {!loading&&listError&&<div className="studio-suggestions-empty studio-suggestions-failure" role="alert"><Inbox size={26} aria-hidden="true"/><h2>Sugerencias no disponibles.</h2><p>{listError}</p><button type="button" className="outline-button" onClick={()=>setRetry(current=>current+1)}><RotateCcw size={16} aria-hidden="true"/> Reintentar</button></div>}
-     {!loading&&!listError&&!items.length&&<div className="studio-suggestions-empty"><Inbox size={26} aria-hidden="true"/><h2>Sin sugerencias todavía.</h2><p>Las solicitudes nuevas aparecerán aquí.</p></div>}
+     {!loading&&listError&&<div className="studio-suggestions-empty studio-suggestions-failure" role="alert"><h2>Sugerencias no disponibles.</h2><p>{listError}</p><button type="button" className="outline-button" onClick={()=>setRetry(current=>current+1)}><RotateCcw size={16} aria-hidden="true"/> Reintentar</button></div>}
+     {!loading&&!listError&&!items.length&&<div className="studio-suggestions-empty"><h2>Sin sugerencias todavía.</h2><p>Las solicitudes nuevas aparecerán aquí.</p></div>}
     </div>
     {!listError&&<nav className="studio-pagination" aria-label="Páginas de sugerencias"><button type="button" className="outline-button" onClick={()=>setPage(current=>Math.max(0,current-1))} disabled={page===0||loading}>Anterior</button><span aria-live="polite">Página {page+1}</span><button type="button" className="outline-button" onClick={nextPage} disabled={!nextCursor||loading}>Siguiente</button></nav>}
    </section>}
