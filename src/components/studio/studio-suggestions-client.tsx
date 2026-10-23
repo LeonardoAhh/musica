@@ -12,7 +12,7 @@ import {UiToaster,notify} from '@/components/ui/toast';
 import {StudioAccessScreen,StudioAccessSkeleton} from '@/components/studio/studio-access-screen';
 import {studioSignInError} from '@/lib/firebase/auth-errors';
 
-const PAGE_SIZE=12;
+const PAGE_SIZE=3;
 
 export default function StudioSuggestionsClient(){
  const services=useMemo(()=>getFirebaseServices(),[]);
