@@ -33,7 +33,7 @@ function FormSection({id,index,title,hint,children}:{id:string;index:string;titl
  </section>;
 }
 
-function StudioSongsSkeleton(){return <div className="studio-skeleton-grid" role="status" aria-label="Cargando canciones">{Array.from({length:12},(_,index)=><div className="studio-song-card studio-song-skeleton" aria-hidden="true" key={index}><SkeletonLine width="75px" height="24px"/><SkeletonLine width="80%" height="29px"/><SkeletonLine width="55%" height="13px"/><SkeletonLine width="65%" height="12px"/></div>)}</div>}
+function StudioSongsSkeleton(){return <div className="studio-skeleton-grid" role="status" aria-label="Cargando canciones">{Array.from({length:3},(_,index)=><div className="studio-song-card studio-song-skeleton" aria-hidden="true" key={index}><SkeletonLine width="75px" height="24px"/><SkeletonLine width="80%" height="29px"/><SkeletonLine width="55%" height="13px"/><SkeletonLine width="65%" height="12px"/></div>)}</div>}
 
 type Pending={kind:'new'}|{kind:'open';id:string}|{kind:'close'};
 
