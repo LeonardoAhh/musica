@@ -1,5 +1,5 @@
 'use client';
-import {useEffect,useMemo,useRef,useState,type ReactNode} from 'react';
+import {useEffect,useMemo,useRef,useState} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {ArrowRight,ChevronLeft,ImagePlus,Inbox,Plus,Search,Save,Sparkles} from 'lucide-react';
@@ -17,6 +17,8 @@ import {SkeletonLine} from '@/components/section-skeletons';
 import {StudioAccessScreen,StudioAccessSkeleton} from '@/components/studio/studio-access-screen';
 import {studioSignInError} from '@/lib/firebase/auth-errors';
 import {StudioAccountActions} from '@/components/studio/studio-account-actions';
+import {FormSection,StudioSongsSkeleton} from '@/components/studio/studio-editor-parts';
+import {StudioImageSuggestion,type ImageSuggestion} from '@/components/studio/studio-image-suggestion';
 
 const empty:SongDraft={title:'',artist:'',genre:'Salsa',mood:'Romance',note:'',palette:'peach',score:10,featured:false,favorite:false,status:'draft'};
 const genreOptions:SelectOption[]=genres.map(value=>({label:value,value}));
@@ -25,16 +27,6 @@ const paletteNames:Record<string,string>={rose:'Rosa',peach:'Durazno',mint:'Ment
 const paletteOptions:SelectOption[]=palettes.map(value=>({label:paletteNames[value],value}));
 const statusOptions:SelectOption[]=[{value:'draft',label:'Borrador'},{value:'published',label:'Publicada'}];
 const filterOptions:SelectOption[]=[{value:'all',label:'Todas'},{value:'published',label:'Publicadas'},{value:'draft',label:'Borradores'}];
-type ImageSuggestion={title:string;artist:string;note:string;genre:string;mood:string};
-
-function FormSection({id,index,title,hint,children}:{id:string;index:string;title:string;hint?:string;children:ReactNode}){
- return <section className="studio-form-card" aria-labelledby={id}>
-  <div className="studio-card-heading"><span className="studio-card-index" aria-hidden="true">{index}</span><div><h3 id={id}>{title}</h3>{hint&&<p>{hint}</p>}</div></div>
-  <div className="studio-form-content">{children}</div>
- </section>;
-}
-
-function StudioSongsSkeleton(){return <div className="studio-skeleton-grid" role="status" aria-label="Cargando canciones">{Array.from({length:3},(_,index)=><div className="studio-song-card studio-song-skeleton" aria-hidden="true" key={index}><SkeletonLine width="75px" height="24px"/><SkeletonLine width="80%" height="29px"/><SkeletonLine width="55%" height="13px"/><SkeletonLine width="65%" height="12px"/></div>)}</div>}
 
 type Pending={kind:'new'}|{kind:'open';id:string}|{kind:'close'};
 
@@ -231,7 +223,7 @@ export default function StudioClient(){
        {identityMode==='image'?<>
        <section className="studio-image-assist" aria-labelledby="studio-image-assist-title">
         <div><h3 id="studio-image-assist-title"><ImagePlus size={18} aria-hidden="true"/> Completar desde una imagen</h3><p>Sube una captura o portada con datos visibles. Revisarás las sugerencias antes de aplicarlas.</p></div>
-        {imageSuggestion?<div className="studio-image-suggestion" role="region" aria-label="Datos sugeridos"><div><strong>Datos detectados</strong><dl>{([['Título',imageSuggestion.title],['Artista',imageSuggestion.artist],['Descripción',imageSuggestion.note],['Género',imageSuggestion.genre],['Emoción',imageSuggestion.mood]] as const).filter(([,value])=>Boolean(value)).map(([label,value])=><div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>{!imageSuggestion.note&&<p>La imagen no aportó datos suficientes para sugerir una descripción; puedes escribirla en Historia.</p>}{![imageSuggestion.title,imageSuggestion.artist,imageSuggestion.note,imageSuggestion.genre,imageSuggestion.mood].some(Boolean)&&<p>No se encontraron datos legibles.</p>}</div><div className="studio-image-suggestion-actions"><button type="button" className="outline-button" onClick={()=>setImageSuggestion(null)}>Otra imagen</button>{[imageSuggestion.title,imageSuggestion.artist,imageSuggestion.note,imageSuggestion.genre,imageSuggestion.mood].some(Boolean)&&<button type="button" className="ink-button" onClick={applyImageSuggestion}>Aplicar a la ficha</button>}</div></div>:<><label className="studio-image-picker">Seleccionar imagen<input type="file" accept="image/png,image/jpeg,image/webp" onChange={event=>{selectImage(event.target.files?.[0]);event.target.value=''}}/></label>
+        {imageSuggestion?<StudioImageSuggestion suggestion={imageSuggestion} onReset={()=>setImageSuggestion(null)} onApply={applyImageSuggestion}/>:<><label className="studio-image-picker">Seleccionar imagen<input type="file" accept="image/png,image/jpeg,image/webp" onChange={event=>{selectImage(event.target.files?.[0]);event.target.value=''}}/></label>
         {imageData&&<div className="studio-image-preview"><Image src={imageData} alt="Imagen seleccionada para extraer datos" width={76} height={76} unoptimized/><div><strong title={imageName}>{imageName}</strong><small>Se envía a Gemini para analizarla; no se guarda en la canción.</small></div><button type="button" className="outline-button" disabled={analyzingImage} onClick={()=>void analyzeImage()}><Sparkles size={16} aria-hidden="true"/> Analizar</button></div>}
         {analyzingImage&&<div className="studio-image-result-skeleton" role="status" aria-label="Analizando imagen"><SkeletonLine width="60%" height="15px"/><SkeletonLine width="85%" height="13px"/></div>}</>}
        </section></>:<>
