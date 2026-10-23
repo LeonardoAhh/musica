@@ -3,7 +3,7 @@ import {useEffect,useMemo,useState} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {onAuthStateChanged,GoogleAuthProvider,getIdTokenResult,signInWithPopup,signOut,type User} from 'firebase/auth';
-import {BadgeCheck,Check,CheckCheck,LogOut,RotateCcw} from 'lucide-react';
+import {BadgeCheck,Check,CheckCheck,RotateCcw} from 'lucide-react';
 import {firebaseConfigured} from '@/lib/firebase/config';
 import {getFirebaseServices} from '@/lib/firebase/client';
 import type {SongSuggestion} from '@/data/song-suggestion';
@@ -11,6 +11,7 @@ import {SkeletonLine} from '@/components/section-skeletons';
 import {UiToaster,notify} from '@/components/ui/toast';
 import {StudioAccessScreen,StudioAccessSkeleton} from '@/components/studio/studio-access-screen';
 import {studioSignInError} from '@/lib/firebase/auth-errors';
+import {StudioAccountActions} from '@/components/studio/studio-account-actions';
 
 const PAGE_SIZE=3;
 
@@ -86,7 +87,7 @@ export default function StudioSuggestionsClient(){
   <UiToaster/>
   <header className="studio-nav">
    <Link className="studio-brand" href="/studio"><Image src="/icon.svg" alt="" width={36} height={36} unoptimized/><span>Ecos Studio</span></Link>
-   <div className="studio-nav-right">{verified&&<button type="button" className="studio-signout" onClick={()=>services&&void signOut(services.auth)}><LogOut size={16} aria-hidden="true"/> Salir</button>}</div>
+   <div className="studio-nav-right">{verified&&<StudioAccountActions onSignOut={()=>services&&void signOut(services.auth)} onRefresh={()=>setRetry(current=>current+1)} refreshing={loading}/> }</div>
   </header>
   {!firebaseConfigured?<StudioAccessScreen mode="unavailable"/>
   :checking?<StudioAccessSkeleton/>
