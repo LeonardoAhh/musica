@@ -2,7 +2,7 @@
 import {useEffect,useMemo,useRef,useState,type ReactNode} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {ArrowRight,ChevronLeft,ImagePlus,Inbox,LogOut,Plus,Search,Save,Sparkles} from 'lucide-react';
+import {ArrowRight,ChevronLeft,ImagePlus,Inbox,Plus,Search,Save,Sparkles} from 'lucide-react';
 import {onAuthStateChanged,GoogleAuthProvider,getIdTokenResult,signInWithPopup,signOut,type User} from 'firebase/auth';
 import type {DocumentSnapshot} from 'firebase/firestore';
 import {firebaseConfigured} from '@/lib/firebase/config';
@@ -16,6 +16,7 @@ import {ResponsiveDialog} from '@/components/ui/responsive-dialog';
 import {SkeletonLine} from '@/components/section-skeletons';
 import {StudioAccessScreen,StudioAccessSkeleton} from '@/components/studio/studio-access-screen';
 import {studioSignInError} from '@/lib/firebase/auth-errors';
+import {StudioAccountActions} from '@/components/studio/studio-account-actions';
 
 const empty:SongDraft={title:'',artist:'',genre:'Salsa',mood:'Romance',note:'',palette:'peach',score:10,featured:false,favorite:false,status:'draft'};
 const genreOptions:SelectOption[]=genres.map(value=>({label:value,value}));
@@ -188,7 +189,7 @@ export default function StudioClient(){
    <span className="studio-brand"><Image src="/icon.svg" alt="" width={36} height={36} unoptimized/><span>Ecos Studio</span></span>
    <div className="studio-nav-right">
     {verified&&<Link className="studio-suggestions-link" href="/studio/suggestions" aria-label="Ver sugerencias de canciones"><Inbox size={17} aria-hidden="true"/><span>Sugerencias</span></Link>}
-    {verified&&<button type="button" className="studio-signout" onClick={()=>services&&void signOut(services.auth)}><LogOut size={16} aria-hidden="true"/> Salir</button>}
+    {verified&&<StudioAccountActions onSignOut={()=>services&&void signOut(services.auth)} onRefresh={()=>{setRefreshSongs(current=>current+1)}} refreshing={loadingSongs}/> }
    </div>
   </header>
   {!firebaseConfigured?<StudioAccessScreen mode="unavailable"/>
