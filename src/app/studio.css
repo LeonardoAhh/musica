@@ -1334,3 +1334,9 @@
   .studio-wizard-steps button .studio-step-title { display: none; }
   .studio-wizard-steps button > span:first-child { font-size: 12px; }
 }
+
+/* When a modal closes, focus can return to the programmatic page target.
+   Do not outline the entire page; interactive controls retain visible focus. */
+.studio-page:focus {
+  outline: none;
+}
