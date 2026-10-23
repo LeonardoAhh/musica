@@ -562,7 +562,7 @@
 }
 
 
-.ui-responsive-dialog.studio-editor-dialog {
+.ui-responsive-dialog.studio-editor-dialog[open] {
   display: flex;
   flex-direction: column;
   overflow: hidden;
