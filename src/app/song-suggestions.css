@@ -371,3 +371,42 @@
     transform: none;
   }
 }
+
+/* Compact states for the admin suggestions list. Keep empty/error messages
+   content-sized instead of leaving a large decorative panel on mobile. */
+.studio-suggestions-empty {
+  min-height: 0;
+  padding: clamp(22px, 4vw, 34px);
+}
+
+.studio-suggestions-empty h2 {
+  margin: 0 0 8px;
+  font-size: clamp(26px, 3.5vw, 32px);
+  line-height: 1.12;
+}
+
+.studio-suggestions-empty p {
+  line-height: 1.6;
+}
+
+.studio-suggestions-failure .outline-button {
+  margin-top: 18px;
+}
+
+@media (max-width: 520px) {
+  .studio-suggestions {
+    padding-top: 20px;
+  }
+
+  .studio-suggestions-heading {
+    margin-bottom: 20px;
+  }
+
+  .studio-suggestions-empty {
+    padding: 22px 20px;
+  }
+
+  .studio-suggestions-empty h2 {
+    font-size: 28px;
+  }
+}
