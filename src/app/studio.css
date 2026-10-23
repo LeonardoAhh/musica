@@ -17,43 +17,21 @@
   border-bottom: 1px solid var(--line);
 }
 
-.studio-brand,
-.studio-signout {
+.studio-brand {
   display: inline-flex;
   align-items: center;
   gap: 9px;
   white-space: nowrap;
-}
-
-.studio-brand {
   font-size: 14px;
   font-weight: 650;
   letter-spacing: -0.02em;
 }
-
-.studio-brand img,
-.studio-signout svg {
-  flex-shrink: 0;
-}
+.studio-brand img { flex-shrink: 0; }
 
 .studio-nav-right {
   display: flex;
   align-items: center;
   gap: clamp(16px, 3vw, 32px);
-}
-
-.studio-signout {
-  border: 1px solid var(--line);
-  border-radius: 99px;
-  background: transparent;
-  font-size: 12px;
-  font-weight: 500;
-  padding: 8px 14px;
-  min-height: 42px;
-}
-
-.studio-signout:hover {
-  background: var(--paper);
 }
 
 /* ============================================================
@@ -562,7 +540,7 @@
 }
 
 
-.ui-responsive-dialog.studio-editor-dialog[open] {
+.ui-responsive-dialog.studio-editor-dialog {
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -604,51 +582,43 @@
   margin: 7px 0 0;
 }
 
+/* Progress is rendered as four thin, accessible segments. */
 .studio-wizard-steps {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 6px;
-  padding: 10px 32px;
+  padding: 0 32px;
   border-bottom: 1px solid var(--line);
 }
-
 .studio-wizard-steps button {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 9px;
+  justify-content: center;
   min-width: 0;
   min-height: 42px;
-  padding: 8px 10px;
-  border: 1px solid transparent;
-  border-radius: 9px;
+  padding: 0;
+  border: 0;
   background: transparent;
   color: var(--muted);
-  text-align: left;
-  font-size: 12px;
-  font-weight: 500;
+  cursor: pointer;
 }
-
-.studio-wizard-steps button>span:first-child {
-  font-size: 10px;
+.studio-wizard-steps button::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: 3px;
+  border-radius: 99px;
+  background: var(--line);
+  transform: translateY(-50%);
 }
-
-.studio-wizard-steps button .studio-step-title {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.studio-wizard-steps button:disabled {
-  cursor: default;
-  opacity: 0.55;
-}
-
-.studio-wizard-steps button.is-current {
-  border-color: var(--line);
-  background: var(--soft);
-  color: var(--ink);
-  font-weight: 600;
+.studio-wizard-steps button.is-current::after { background: var(--ink); }
+.studio-wizard-steps button > span { display: none; }
+.studio-wizard-steps button:disabled { cursor: default; }
+.studio-wizard-steps button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -2px;
 }
 
 .studio-wizard-body {
@@ -902,11 +872,6 @@
 
 /* Keyboard focus must remain obvious on both list and editor. */
 .studio-add:focus-visible,
-.studio-signout:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 3px;
-}
-
 /* ============================================================
    Responsive
    ============================================================ */
@@ -997,17 +962,10 @@
     padding: 12px 20px 0;
   }
 
-  .studio-wizard-steps {
-    padding: 9px 20px;
-    gap: 4px;
-  }
-
-  .studio-wizard-steps button {
-    justify-content: center;
-    gap: 6px;
-    padding-inline: 5px;
-    font-size: 11px;
-  }
+  .studio-wizard-header { padding-bottom: 8px; }
+  .studio-wizard-header > p:last-child { display: none; }
+  .studio-wizard-steps { padding: 0 20px; gap: 5px; }
+  .studio-wizard-steps button { min-height: 28px; }
 
   .studio-wizard-body {
     padding: 14px 20px;
@@ -1029,10 +987,6 @@
 
   .studio-nav-right {
     gap: 12px;
-  }
-
-  .studio-signout {
-    padding-inline: 10px;
   }
 
   .studio-brand {
@@ -1106,14 +1060,6 @@
 }
 
 @media (max-width: 420px) {
-  .studio-wizard-steps button .studio-step-title {
-    display: none;
-  }
-
-  .studio-wizard-steps button>span:first-child {
-    font-size: 12px;
-  }
-
   .studio-identity-modes {
     max-width: none;
   }
@@ -1196,18 +1142,6 @@
   position: relative;
 }
 
-.studio-account-menu summary {
-  list-style: none;
-}
-
-.studio-account-menu summary::-webkit-details-marker {
-  display: none;
-}
-
-.studio-account-menu[open] summary svg {
-  transform: rotate(180deg);
-}
-
 .studio-account-menu-panel {
   position: absolute;
   z-index: 30;
@@ -1250,94 +1184,12 @@
   .studio-nav-right { gap: 8px; }
   .studio-account-actions { gap: 6px; }
   .studio-nav-action { min-height: 42px; padding: 8px 10px; }
-  .studio-account-actions > .studio-nav-action span { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .studio-refreshing { animation: none; }
 }
 
-/* Compact wizard stepper: preserve navigation and focus without bulky tabs. */
-.studio-wizard-steps {
-  gap: 4px;
-  padding-block: 7px;
-}
-.studio-wizard-steps button {
-  justify-content: center;
-  min-height: 42px;
-  gap: 6px;
-  padding: 5px 6px;
-  border-radius: 7px;
-  font-size: 11px;
-}
-.studio-wizard-steps button.is-current {
-  border-color: transparent;
-  background: var(--soft);
-}
-.studio-wizard-steps button > span:first-child {
-  font-size: 10px;
-  font-variant-numeric: tabular-nums;
-}
-@media (max-width: 767px) {
-  .studio-wizard-header { padding-bottom: 8px; }
-  .studio-wizard-header > p:last-child { display: none; }
-  .studio-wizard-steps { padding: 5px 20px; gap: 3px; }
-  .studio-wizard-steps button { min-height: 42px; padding: 4px; }
-  .studio-wizard-steps button .studio-step-title { display: none; }
-  .studio-wizard-steps button > span:first-child { font-size: 12px; }
-}
 
-/* When a modal closes, focus can return to the programmatic page target.
-   Do not outline the entire page; interactive controls retain visible focus. */
-.studio-page:focus {
-  outline: none;
-}
-
-/* Minimal progress indicator: thin segments with accessible 42px tap targets. */
-.studio-wizard-steps {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 6px;
-  padding: 0 32px;
-  border-bottom: 1px solid var(--line);
-}
-.studio-wizard-steps button,
-.studio-wizard-steps button.is-current {
-  position: relative;
-  min-height: 42px;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  justify-content: center;
-}
-.studio-wizard-steps button::after {
-  content: '';
-  position: absolute;
-  inset-inline: 0;
-  top: 50%;
-  height: 3px;
-  border-radius: 99px;
-  background: var(--line);
-  transform: translateY(-50%);
-}
-.studio-wizard-steps button.is-current::after {
-  background: var(--ink);
-}
-.studio-wizard-steps button > span {
-  display: none !important;
-}
-.studio-wizard-steps button:focus-visible {
-  outline-offset: -2px;
-}
-@media (max-width: 767px) {
-  .studio-wizard-steps {
-    padding: 0 20px;
-    gap: 5px;
-  }
-  .studio-wizard-steps button,
-  .studio-wizard-steps button.is-current {
-    min-height: 28px;
-    padding: 0;
-  }
-}
+/* Focus may return to the page container when closing a dialog. */
+.studio-page:focus { outline: none; }
