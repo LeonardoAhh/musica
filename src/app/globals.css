@@ -859,7 +859,8 @@ a {
 .modal-backdrop {
     position: fixed;
     z-index: 60;
-    inset: 0;
+    /* Extend over the standalone PWA's top safe area, like the native Studio dialog. */
+    inset: calc(-1 * env(safe-area-inset-top)) 0 0;
     background: rgba(12, 10, 9, 0.66);
     padding: 25px;
     display: grid;
