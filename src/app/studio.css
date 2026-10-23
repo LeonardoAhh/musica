@@ -1304,3 +1304,33 @@
 @media (prefers-reduced-motion: reduce) {
   .studio-refreshing { animation: none; }
 }
+
+/* Compact wizard stepper: preserve navigation and focus without bulky tabs. */
+.studio-wizard-steps {
+  gap: 4px;
+  padding-block: 7px;
+}
+.studio-wizard-steps button {
+  justify-content: center;
+  min-height: 42px;
+  gap: 6px;
+  padding: 5px 6px;
+  border-radius: 7px;
+  font-size: 11px;
+}
+.studio-wizard-steps button.is-current {
+  border-color: transparent;
+  background: var(--soft);
+}
+.studio-wizard-steps button > span:first-child {
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 767px) {
+  .studio-wizard-header { padding-bottom: 8px; }
+  .studio-wizard-header > p:last-child { display: none; }
+  .studio-wizard-steps { padding: 5px 20px; gap: 3px; }
+  .studio-wizard-steps button { min-height: 42px; padding: 4px; }
+  .studio-wizard-steps button .studio-step-title { display: none; }
+  .studio-wizard-steps button > span:first-child { font-size: 12px; }
+}
