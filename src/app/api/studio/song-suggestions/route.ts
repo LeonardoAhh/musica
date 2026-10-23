@@ -4,7 +4,7 @@ import {adminDb,isEditorRequest} from '@/lib/firebase/admin';
 import type {SongSuggestion} from '@/data/song-suggestion';
 
 export const runtime='nodejs';
-const PAGE_SIZE=12;
+const PAGE_SIZE=3;
 const validId=/^[0-9a-z]{9}-[0-9a-f]{12}$/;
 
 function present(id:string,data:FirebaseFirestore.DocumentData):SongSuggestion{
