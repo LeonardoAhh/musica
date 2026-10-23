@@ -3,7 +3,7 @@ import {useEffect,useMemo,useState} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {onAuthStateChanged,GoogleAuthProvider,getIdTokenResult,signInWithPopup,signOut,type User} from 'firebase/auth';
-import {Check,LogOut,RotateCcw} from 'lucide-react';
+import {BadgeCheck,Check,CheckCheck,LogOut,RotateCcw} from 'lucide-react';
 import {firebaseConfigured} from '@/lib/firebase/config';
 import {getFirebaseServices} from '@/lib/firebase/client';
 import type {SongSuggestion} from '@/data/song-suggestion';
@@ -96,10 +96,10 @@ export default function StudioSuggestionsClient(){
     <div className="studio-suggestions-heading"><div><p className="eyebrow">SOLICITUDES DEL ARCHIVO</p><h1 id="studio-suggestions-heading">Canciones sugeridas</h1></div><p>Revisa los títulos que comparte la comunidad y marca los que ya incorporaste.</p></div>
     <div className="studio-suggestions-grid" aria-busy={loading}>
      {loading?Array.from({length:PAGE_SIZE},(_,index)=><div className="studio-suggestion-card studio-suggestion-skeleton" key={index} aria-hidden="true"><SkeletonLine width="85px" height="12px"/><SkeletonLine width="75%" height="30px"/><SkeletonLine width="120px" height="13px"/></div>)
-     :items.map(item=><article className="studio-suggestion-card" key={item.id}>
-       <div className="studio-suggestion-top"><span className="studio-status" data-status={item.status}>{item.status==='added'?'Agregada':'Pendiente'}</span>{item.createdAt&&<time dateTime={item.createdAt}>{new Date(item.createdAt).toLocaleDateString('es-MX',{dateStyle:'medium'})}</time>}</div>
+     :items.map(item=><article className="studio-suggestion-card" data-status={item.status} key={item.id}>
+       <div className="studio-suggestion-top"><span className="studio-status" data-status={item.status}>{item.status==='added'&&<BadgeCheck size={15} aria-hidden="true"/>}{item.status==='added'?'Agregada':'Pendiente'}</span>{item.createdAt&&<time dateTime={item.createdAt}>{new Date(item.createdAt).toLocaleDateString('es-MX',{dateStyle:'medium'})}</time>}</div>
        <h2>{item.title}</h2>
-       {item.status==='pending'?<button type="button" className="outline-button" disabled={Boolean(busyId)} onClick={()=>void markAdded(item.id)}><Check size={17} aria-hidden="true"/>{busyId===item.id?'Guardando…':'Marcar como agregada'}</button>:<p className="studio-suggestion-done"><Check size={16} aria-hidden="true"/> Ya está en el archivo</p>}
+       {item.status==='pending'?<button type="button" className="outline-button" disabled={Boolean(busyId)} onClick={()=>void markAdded(item.id)}><Check size={17} aria-hidden="true"/>{busyId===item.id?'Guardando…':'Marcar como agregada'}</button>:<p className="studio-suggestion-done"><CheckCheck size={17} aria-hidden="true"/> Ya está en el archivo</p>}
       </article>)}
      {!loading&&listError&&<div className="studio-suggestions-empty studio-suggestions-failure" role="alert"><h2>Sugerencias no disponibles.</h2><p>{listError}</p><button type="button" className="outline-button" onClick={()=>setRetry(current=>current+1)}><RotateCcw size={16} aria-hidden="true"/> Reintentar</button></div>}
      {!loading&&!listError&&!items.length&&<div className="studio-suggestions-empty"><h2>Sin sugerencias todavía.</h2><p>Las solicitudes nuevas aparecerán aquí.</p></div>}
