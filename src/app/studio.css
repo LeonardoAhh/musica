@@ -561,13 +561,6 @@
   line-height: 1.6;
 }
 
-/* Radix Select locks body scrolling when opened. Keep the document scrollbar in place while its menu lives in the native dialog. */
-body[data-scroll-locked]:has(.studio-editor-dialog[open]) {
-  overflow-y: auto !important;
-  position: static !important;
-  margin-right: 0 !important;
-  padding-right: 0 !important;
-}
 
 .ui-responsive-dialog.studio-editor-dialog {
   overflow-y: auto;
