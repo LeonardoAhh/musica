@@ -410,3 +410,43 @@
     font-size: 28px;
   }
 }
+
+/* Compact completed suggestions; no fixed card height or bottom-pushed status. */
+.studio-suggestion-card[data-status='added'] {
+  min-height: 0;
+  gap: 12px;
+  padding: 18px 20px;
+}
+
+.studio-suggestion-card[data-status='added'] h2 {
+  margin: 0;
+  line-height: 1.15;
+}
+
+.studio-suggestion-card[data-status='added'] .studio-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.studio-suggestion-card[data-status='added'] .studio-suggestion-done {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding-top: 11px;
+  border-top: 1px solid var(--line);
+  line-height: 1.4;
+}
+
+.studio-suggestion-card[data-status='added'] .studio-suggestion-done svg {
+  flex: none;
+}
+
+@media (max-width: 520px) {
+  .studio-suggestion-card[data-status='added'] {
+    min-height: 0;
+    padding: 16px 18px;
+    gap: 11px;
+  }
+}
