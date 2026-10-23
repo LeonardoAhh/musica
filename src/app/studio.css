@@ -17,14 +17,17 @@
   border-bottom: 1px solid var(--line);
 }
 
-.studio-brand,
 .studio-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  white-space: nowrap;
   font-size: 14px;
   font-weight: 650;
   letter-spacing: -0.02em;
 }
+.studio-brand img { flex-shrink: 0; }
 
-.studio-brand img,
 .studio-nav-right {
   display: flex;
   align-items: center;
@@ -984,10 +987,6 @@
 
   .studio-nav-right {
     gap: 12px;
-  }
-
-  __unused_studio_signout {
-    padding-inline: 10px;
   }
 
   .studio-brand {
