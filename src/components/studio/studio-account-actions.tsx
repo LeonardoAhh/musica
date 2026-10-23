@@ -14,7 +14,7 @@ export function StudioAccountActions({onSignOut,onRefresh,refreshing=false}:Stud
  const [open,setOpen]=useState(false);
  const rootRef=useRef<HTMLDivElement>(null);
  const triggerRef=useRef<HTMLButtonElement>(null);
- const signOutRef=useRef<HTMLButtonElement>(null);
+ const refreshRef=useRef<HTMLButtonElement>(null);
 
  useEffect(()=>{
   if(!open)return;
@@ -33,18 +33,15 @@ export function StudioAccountActions({onSignOut,onRefresh,refreshing=false}:Stud
  },[open]);
 
  return <div className="studio-account-actions">
-  <button type="button" className="studio-nav-action" onClick={onRefresh} disabled={refreshing} aria-label="Actualizar contenido" title="Actualizar contenido">
-   <RefreshCw size={18} aria-hidden="true" className={refreshing?'studio-refreshing':''}/>
-   <span>Actualizar</span>
-  </button>
   <div className="studio-account-menu" ref={rootRef}>
    <button ref={triggerRef} type="button" className="studio-nav-action" aria-expanded={open} aria-controls="studio-account-menu-panel" aria-haspopup="true" onClick={()=>setOpen(current=>!current)} onKeyDown={event=>{
-    if(event.key==='ArrowDown'){event.preventDefault();setOpen(true);requestAnimationFrame(()=>signOutRef.current?.focus())}
+    if(event.key==='ArrowDown'){event.preventDefault();setOpen(true);requestAnimationFrame(()=>refreshRef.current?.focus())}
    }}>
     <span>Cuenta</span><ChevronDown size={16} aria-hidden="true"/>
    </button>
    {open&&<div id="studio-account-menu-panel" className="studio-account-menu-panel">
-    <button ref={signOutRef} type="button" onClick={()=>{setOpen(false);onSignOut()}}><LogOut size={17} aria-hidden="true"/>Cerrar sesión</button>
+    <button ref={refreshRef} type="button" disabled={refreshing} onClick={()=>{setOpen(false);onRefresh()}}><RefreshCw size={17} aria-hidden="true" className={refreshing?'studio-refreshing':''}/>Actualizar</button>
+    <button type="button" onClick={()=>{setOpen(false);onSignOut()}}><LogOut size={17} aria-hidden="true"/>Cerrar sesión</button>
    </div>}
   </div>
  </div>;
